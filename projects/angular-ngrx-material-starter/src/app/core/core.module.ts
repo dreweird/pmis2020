@@ -97,7 +97,7 @@ export {
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(
     http,
-    `${environment.i18nPrefix}/assets/i18n/`,
+    `./assets/i18n/`,
     '.json'
   );
 }
@@ -131,7 +131,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
-          name: 'Angular NgRx Material Starter'
+          name: 'PMIS2020'
         }),
 
     // 3rd party

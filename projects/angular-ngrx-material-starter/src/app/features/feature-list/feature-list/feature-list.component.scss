@@ -1,49 +1,41 @@
-@import '../../../../styles-variables';
-
-.container {
-  margin-top: 20px;
+.caps {
+  text-transform: uppercase;
 }
 
-.main-heading {
-  text-transform: uppercase;
-  margin: 0 0 20px 0;
+.image {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
 }
 
 mat-card {
-  margin: 0 0 20px 0;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
 
-  mat-card-title {
-    position: relative;
+.center {
+  text-align: center;
 
-    code {
-      position: absolute;
-      top: 11px;
-      right: 0;
-      float: right;
-      font-size: 10px;
-    }
-  }
-  mat-card-subtitle {
-    min-height: 60px;
-  }
+  font-size: 1.5vw;
+}
+table,
+.table {
+  height: 400px !important;
+}
+tr {
+  line-height: 25px;
+  min-height: 25px;
+  height: 25px;
+}
 
-  @media (max-width: map-get($grid-breakpoints, sm)) {
-    mat-card-subtitle {
-      min-height: auto;
-    }
-  }
-
+td {
   a {
-    fa-icon {
-      position: relative;
-      bottom: 2px;
-      font-size: 16px;
-      margin: 6px;
-    }
+    color: hotpink;
   }
+}
 
-  a[mat-icon-button] {
-    position: relative;
-    left: 5px;
+@media screen and (max-width: 750px) {
+  .center {
+    font-size: 4vw;
   }
 }

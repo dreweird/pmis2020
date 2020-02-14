@@ -61,14 +61,14 @@
                 {
                   "type": "bundle",
                   "name": "styles",
-                  "baseline": "280kb",
+                  "baseline": "400kb",
                   "maximumWarning": "50kb",
                   "maximumError": "100kb"
                 },
                 {
                   "type": "bundle",
                   "name": "main",
-                  "baseline": "1024kb",
+                  "baseline": "2500kb",
                   "maximumWarning": "100kb",
                   "maximumError": "200kb"
                 },
@@ -133,7 +133,9 @@
               "projects/angular-ngrx-material-starter/tsconfig.spec.json",
               "projects/angular-ngrx-material-starter/e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -151,5 +153,8 @@
       }
     }
   },
-  "defaultProject": "angular-ngrx-material-starter"
+  "defaultProject": "angular-ngrx-material-starter",
+  "cli": {
+    "analytics": "1abb877c-7ae9-4d69-b593-32d132ba7881"
+  }
 }

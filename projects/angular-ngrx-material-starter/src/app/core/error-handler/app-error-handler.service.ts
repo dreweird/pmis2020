@@ -14,14 +14,26 @@ export class AppErrorHandler extends ErrorHandler {
     super();
   }
 
-  handleError(error: Error | HttpErrorResponse) {
+   handleError(error: Error | HttpErrorResponse) {
+    console.log(error);
+    // const store = this.injector.get(Store);
     let displayMessage = 'An error occurred.';
 
+    if (error instanceof HttpErrorResponse) {
+      if (error.status === 401) {
+        this.notificationsService.error(
+          'Your Access is denied!! Please login again!'
+        );
+      }
+      if (error.status === 400) {
+        this.notificationsService.error(error.error);
+      }
+    } else {
+      this.notificationsService.error(displayMessage);
+    }
     if (!environment.production) {
       displayMessage += ' See console for details.';
     }
-
-    this.notificationsService.error(displayMessage);
 
     super.handleError(error);
   }
