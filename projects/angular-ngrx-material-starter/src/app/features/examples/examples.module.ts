@@ -44,6 +44,9 @@ import { DistrictComponent } from './district/district.component';
 import { Bed3PlanComponent } from './bed3/bed3-plan.component';
 import { Bed3ContainerComponent } from './bed3/bed3-container/bed3-container.component';
 import { Bed3Component } from './bed3/bed3.component';
+import { BydistrictComponent } from './bydistrict/bydistrict.component';
+import { BymunicipalComponent } from './bymunicipal/bymunicipal.component';
+import { PdzComponent } from './pdz/pdz.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -104,7 +107,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     Bed3ContainerComponent,
     Bed3PlanComponent,
     Bed3Component,
-    DistrictComponent
+    DistrictComponent,
+    BydistrictComponent,
+    BymunicipalComponent,
+    PdzComponent
   ],
   providers: [StockMarketService, UserService]
 })

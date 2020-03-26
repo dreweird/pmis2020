@@ -1202,6 +1202,9 @@ function getSimpleCellRenderer() {
     } else if (params.data.area == 1) {
       tempDiv.innerHTML =
         '<span style="background-color: #FFFF00">' + params.value + '</span>';
+    }else if (params.data.maintenance == 1) {
+      tempDiv.innerHTML =
+        '<span style="background-color: #7FFFD4">' + params.value + '</span>';
     } else {
       // console.log(params);
       tempDiv.innerHTML = '<span>' + params.value + '</span>';

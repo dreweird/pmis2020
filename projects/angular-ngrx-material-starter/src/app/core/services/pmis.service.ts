@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PmisService {
-  // apiRoot: string = 'http://172.16.130.10:3115';
-   apiRoot: string = 'http://210.5.100.46:3116';
-  // apiRoot: string = 'http://localhost:3115';
+   apiRoot: string = 'http://172.16.130.10:3116';
+  // apiRoot: string = 'http://210.5.100.46:3116';
+   // apiRoot: string = 'http://localhost:3116';
 
   constructor(private http: HttpClient) {}
 
@@ -21,9 +21,33 @@ export class PmisService {
     return this.http.get<any>(url);
   }
 
+  pdz(): Observable<any> {
+    const url = `${this.apiRoot}/pdz`;
+    return this.http.get<any>(url);
+  }
+
+  distinctProv(): Observable<any> {
+    const url = `${this.apiRoot}/distinctProv`;
+    return this.http.get<any>(url);
+  }
+  distinctMun(): Observable<any> {
+    const url = `${this.apiRoot}/distinctMun`;
+    return this.http.get<any>(url);
+  }
+
   getPerformance_program(pid: number) {
     const url = `${this.apiRoot}/getFinPerformance`;
     return this.http.post<any>(url, { pid });
+  }
+
+  by_district(data: any) {
+    const url = `${this.apiRoot}/by_district`;
+    return this.http.post<any>(url, { data });
+  }
+
+  by_mun(data: any) {
+    const url = `${this.apiRoot}/by_mun`;
+    return this.http.post<any>(url, { data });
   }
 
   getMFO(pid: number): Observable<any> {

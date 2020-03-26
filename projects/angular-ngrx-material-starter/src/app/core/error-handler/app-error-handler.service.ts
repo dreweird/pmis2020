@@ -25,6 +25,9 @@ export class AppErrorHandler extends ErrorHandler {
           'Your Access is denied!! Please login again!'
         );
       }
+      if (error.status === 0) {
+        this.notificationsService.error("Server is offline...Please contact the administrator!");
+      }
       if (error.status === 400) {
         this.notificationsService.error(error.error);
       }

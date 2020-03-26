@@ -9,6 +9,10 @@ import { Bed1ContainerComponent } from './bed1/bed1-container/bed1-container.com
 import { Bed2Component } from './bed2/bed2.component';
 import { Bed3ContainerComponent } from './bed3/bed3-container/bed3-container.component';
 import { DistrictComponent } from './district/district.component';
+import { BydistrictComponent } from './bydistrict/bydistrict.component';
+import { BymunicipalComponent } from './bymunicipal/bymunicipal.component';
+import { PdzComponent } from './pdz/pdz.component';
+
 // import { ParentComponent } from './theming/parent/parent.component';
 // import { TodosContainerComponent } from './todos/components/todos-container.component';
 // import { StockMarketContainerComponent } from './stock-market/components/stock-market-container.component';
@@ -47,6 +51,18 @@ const routes: Routes = [
         path: 'district',
         component: DistrictComponent,
         data: { title: 'DISTRICT' }
+      },
+      {
+        path: 'bydistrict',
+        component: BydistrictComponent
+      },
+      {
+        path: 'bymun',
+        component: BymunicipalComponent
+      },
+      {
+        path: 'pdz',
+        component: PdzComponent
       },
       // {
       //   path: 'todos',

@@ -10,6 +10,9 @@ LicenseManager.setLicenseKey(
 );
 if (environment.production) {
   enableProdMode();
+  if(window){
+    window.console.log=function(){};
+  }
 }
 
 platformBrowserDynamic()

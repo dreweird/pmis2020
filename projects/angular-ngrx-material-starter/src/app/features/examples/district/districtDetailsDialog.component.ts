@@ -13,13 +13,17 @@ import { faWindows } from '@fortawesome/free-brands-svg-icons';
           <fa-icon icon="times"></fa-icon>
         </button>
 
-        <h2 mat-dialog-title>{{ data.mfo_name }}</h2>
+        <h2 mat-dialog-title>{{data.header_subindicator}} - {{ data.mfo_name }}</h2>
 
         <ag-grid-angular
           style="width: 100%; height: 400px;"
           class="ag-theme-balham"
           [rowData]="rowData"
           [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [autoGroupColumnDef]="autoGroupColumnDef"
+          [groupDefaultExpanded]=-1
+          [suppressAggFuncInHeader]= "true"
           (cellValueChanged)="onCellValueChanged($event)"
           (gridReady)="onGridReady($event)"
         >
@@ -38,11 +42,22 @@ export class districtDetailsDialog implements OnInit {
   rowData: any;
   user: any;
   edit: any;
+  autoGroupColumnDef = {
+    headerName: 'AREA',
+    cellRenderer: 'agGroupCellRenderer',
+    pinned: 'left',
+    width: 150,
+    field: 'province'
+  };
+  defaultColDef = { resizable: true };
+  
 
   columnDefs = [
-    { headerName: 'Province', field: 'province', width: 150, pinned: 'left' },
-    { headerName: 'Municipal', field: 'municipal', width: 150, pinned: 'left' },
-    { headerName: 'Target', field: 'target', width: 100 },
+    { headerName: 'Province', field: 'province', width: 150, pinned: 'left',  rowGroup: true, hide: true},
+    { headerName: 'Municipal', field: 'municipal', width: 150, pinned: 'left',  rowGroup: true, hide: true},
+    { headerName: 'Barangay', field: 'barangay', pinned: 'left', width: 100 },
+    { headerName: 'Group', field: 'group', pinned: 'left', width: 200 },
+    { headerName: 'Target', field: 'target', width: 100,  aggFunc: "sum", enableValue: true },
     {
       headerName: 'Accomplishment',
       children: [
@@ -50,6 +65,7 @@ export class districtDetailsDialog implements OnInit {
           headerName: 'Jan',
           field: 'jan',
           width: 70,
+          aggFunc: "sum", enableValue: true,
           editable: params => {
             if (params.data.q_1 && this.edit) return true;
             else return false;
@@ -59,6 +75,7 @@ export class districtDetailsDialog implements OnInit {
           headerName: 'Feb',
           field: 'feb',
           width: 70,
+          aggFunc: "sum", enableValue: true,
           editable: params => {
             if (params.data.q_1 && this.edit) return true;
             else return false;
@@ -68,6 +85,7 @@ export class districtDetailsDialog implements OnInit {
           headerName: 'Mar',
           field: 'mar',
           width: 70,
+          aggFunc: "sum", enableValue: true,
           editable: params => {
             if (params.data.q_1 && this.edit) return true;
             else return false;
@@ -77,12 +95,16 @@ export class districtDetailsDialog implements OnInit {
           headerName: 'Q1',
           width: 70,
           cellStyle: { color: 'white', 'background-color': '#5472d3' },
-          valueGetter: 'Number(data.jan) + Number(data.feb) + Number(data.mar)'
+          valueGetter: function(params) {
+            let data = params.data;
+            if(data) return Number(data.jan) + Number(data.feb) + Number(data.mar)
+          }
         },
         {
           headerName: 'Apr',
           field: 'apr',
           width: 70,
+          aggFunc: "sum", enableValue: true,
           editable: params => {
             if (params.data.q_2 && this.edit) return true;
             else return false;
@@ -92,6 +114,7 @@ export class districtDetailsDialog implements OnInit {
           headerName: 'May',
           field: 'may',
           width: 70,
+          aggFunc: "sum", enableValue: true,
           editable: params => {
             if (params.data.q_2 && this.edit) return true;
             else return false;
@@ -101,6 +124,7 @@ export class districtDetailsDialog implements OnInit {
           headerName: 'Jun',
           field: 'jun',
           width: 70,
+          aggFunc: "sum", enableValue: true,
           editable: params => {
             if (params.data.q_2 && this.edit) return true;
             else return false;
@@ -110,12 +134,16 @@ export class districtDetailsDialog implements OnInit {
           headerName: 'Q2',
           width: 70,
           cellStyle: { color: 'white', 'background-color': '#5472d3' },
-          valueGetter: 'Number(data.apr) + Number(data.may) + Number(data.jun)'
+          valueGetter: function(params) {
+            let data = params.data;
+            if(data) return Number(data.apr) + Number(data.may) + Number(data.jun)
+          }
         },
         {
           headerName: 'Jul',
           field: 'jul',
           width: 70,
+          aggFunc: "sum", enableValue: true,
           editable: params => {
             if (params.data.q_3 && this.edit) return true;
             else return false;
@@ -124,6 +152,7 @@ export class districtDetailsDialog implements OnInit {
         {
           headerName: 'Aug',
           field: 'aug',
+          aggFunc: "sum", enableValue: true,
           width: 70,
           editable: params => {
             if (params.data.q_3 && this.edit) return true;
@@ -133,6 +162,7 @@ export class districtDetailsDialog implements OnInit {
         {
           headerName: 'Sep',
           field: 'sep',
+          aggFunc: "sum", enableValue: true,
           width: 70,
           editable: params => {
             if (params.data.q_3 && this.edit) return true;
@@ -143,12 +173,16 @@ export class districtDetailsDialog implements OnInit {
           headerName: 'Q3',
           width: 70,
           cellStyle: { color: 'white', 'background-color': '#5472d3' },
-          valueGetter: 'Number(data.jul) + Number(data.aug) + Number(data.sep)'
+          valueGetter: function(params) {
+            let data = params.data;
+            if(data) return Number(data.jul) + Number(data.aug) + Number(data.sep)
+          }
         },
         {
           headerName: 'Oct',
           field: 'oct',
           width: 70,
+          aggFunc: "sum", enableValue: true,
           editable: params => {
             if (params.data.q_4 && this.edit) return true;
             else return false;
@@ -157,6 +191,7 @@ export class districtDetailsDialog implements OnInit {
         {
           headerName: 'Nov',
           field: 'nov',
+          aggFunc: "sum", enableValue: true,
           width: 70,
           editable: params => {
             if (params.data.q_4 && this.edit) return true;
@@ -166,6 +201,7 @@ export class districtDetailsDialog implements OnInit {
         {
           headerName: 'Dec',
           field: 'dece',
+          aggFunc: "sum", enableValue: true,
           width: 70,
           editable: params => {
             if (params.data.q_4 && this.edit) return true;
@@ -176,16 +212,20 @@ export class districtDetailsDialog implements OnInit {
           headerName: 'Q4',
           width: 70,
           cellStyle: { color: 'white', 'background-color': '#5472d3' },
-          valueGetter: 'Number(data.oct) + Number(data.nov) + Number(data.dece)'
+          valueGetter: function(params) {
+            let data = params.data;
+            if(data) return Number(data.oct) + Number(data.nov) + Number(data.dece)
+          }
         },
         {
           headerName: 'Total',
           field: 'total',
           width: 100,
           cellStyle: { 'background-color': 'yellow' },
-          valueGetter:
-            'Number(data.jan) + Number(data.feb) + Number(data.mar) + Number(data.apr) + Number(data.may) + Number(data.jun) + Number(data.jul) + Number(data.aug) + Number(data.sep) + Number(data.oct) + Number(data.nov) + Number(data.dece)'
-        }
+          valueGetter: function(params) {
+            let data = params.data;
+            if(data) return Number(data.jan) + Number(data.feb) + Number(data.mar) + Number(data.apr) + Number(data.may) + Number(data.jun) + Number(data.jul) + Number(data.aug) + Number(data.sep) + Number(data.oct) + Number(data.nov) + Number(data.dece)
+          }  }
       ]
     },
     {
@@ -234,6 +274,8 @@ export class districtDetailsDialog implements OnInit {
       ]
     }
   ];
+
+  
 
   constructor(
     private mfoService: PmisService,

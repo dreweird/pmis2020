@@ -106,6 +106,87 @@ app.post('/mfos', middleware.checkToken, function(req, res) {
     res.json(results);
   });
 });
+app.get('/pdz', function(req, res) {
+  var query = `SELECT * FROM tbl_mfo INNER JOIN tbl_district on tbl_mfo.mfo_id = tbl_district.mfo_id WHERE tbl_district.pdz=1 order by province, municipal`
+  connection.query(query, function(error, results) {
+    if (error) throw error;
+    res.json(results);
+
+  });
+
+
+});
+app.post('/by_district', function(req, res) {
+  var query = `SELECT * FROM tbl_mfo INNER JOIN tbl_district on tbl_mfo.mfo_id = tbl_district.mfo_id WHERE tbl_district.province = ? and tbl_district.district = ? group by tbl_mfo.mfo_id`
+  var data = [req.body.data.prov, req.body.data.district];
+  query = mysql.format(query, data);
+  console.log(query);
+  connection.query(query, function(error, results) {
+    var itemsProcessed = 0;
+    if (error) throw error;
+    async.each(results, function(row, callback) {
+      async.parallel({
+        location: function(callback){
+          var query1 = `SELECT sum(target) as target, municipal FROM tbl_district where province= ? and district= ? and mfo_id= ? group by municipal`
+          var data1 = [req.body.data.prov, req.body.data.district, row.mfo_id];
+          query1 = mysql.format(query1,data1);
+          connection.query(query1, function (error, rows) {
+           // console.log(rows);
+            // if(rows[0] == undefined) callback(null, null);
+           callback(null, rows);
+       
+          });
+        }
+      }, function(err, resultsLocation){
+        //console.log(resultsLocation);
+        row.location = resultsLocation.location;
+        itemsProcessed++;
+        if(itemsProcessed === results.length) {
+          res.json(results); 
+        }
+      })
+    })
+
+  });
+
+
+});
+app.post('/by_mun', function(req, res) {
+  var query = `SELECT * FROM tbl_mfo INNER JOIN tbl_district on tbl_mfo.mfo_id = tbl_district.mfo_id WHERE tbl_district.province = ? and tbl_district.municipal = ? group by tbl_mfo.mfo_id`
+  var data = [req.body.data.prov, req.body.data.mun];
+  query = mysql.format(query, data);
+  console.log(query);
+  connection.query(query, function(error, results) {
+    var itemsProcessed = 0;
+    if (error) throw error;
+    async.each(results, function(row, callback) {
+      async.parallel({
+        location: function(callback){
+          var query1 = `SELECT sum(target) as target, municipal FROM tbl_district where province= ? and municipal= ? and mfo_id= ? group by municipal`
+          var data1 = [req.body.data.prov, req.body.data.mun, row.mfo_id];
+          query1 = mysql.format(query1,data1);
+          connection.query(query1, function (error, rows) {
+           // console.log(rows);
+            // if(rows[0] == undefined) callback(null, null);
+           callback(null, rows);
+       
+          });
+        }
+      }, function(err, resultsLocation){
+        //console.log(resultsLocation);
+        row.location = resultsLocation.location;
+        itemsProcessed++;
+        if(itemsProcessed === results.length) {
+          res.json(results); 
+        }
+      })
+    })
+
+  });
+
+
+});
+
 app.post('/syncPhysicalDistrict', middleware.checkToken, function(req, res) {
   //console.log(req);
   connection.query(
@@ -178,6 +259,26 @@ app.get('/getObjectCode', middleware.checkToken, function(req, res) {
   connection.query(
     `
     SELECT * FROM tbl_object order by object_id ASC`,
+    function(error, results) {
+      if (error) throw error;
+      res.json(results);
+    }
+  );
+});
+
+app.get('/distinctProv', middleware.checkToken, function(req, res) {
+  connection.query(
+    `SELECT  DISTINCT province FROM  tbl_district`,
+    function(error, results) {
+      if (error) throw error;
+      res.json(results);
+    }
+  );
+});
+
+app.get('/distinctMun', middleware.checkToken, function(req, res) {
+  connection.query(
+    `SELECT DISTINCT municipal, province FROM  tbl_district order by municipal`,
     function(error, results) {
       if (error) throw error;
       res.json(results);

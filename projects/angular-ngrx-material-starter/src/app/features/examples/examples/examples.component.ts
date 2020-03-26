@@ -32,13 +32,19 @@ export class ExamplesComponent implements OnInit {
         { link: 'bed1', label: 'BED-1' },
         { link: 'bed2', label: 'BED-2' },
         { link: 'bed3', label: 'BED-3' },
-        { link: 'district', label: 'DISTRICT' }
+      //  { link: 'district', label: 'DISTRICT' },
+        { link: 'bydistrict', label: 'BY DISTRICT' },
+        { link: 'bymun', label: 'BY MUNICIPAL' },
+        { link: 'pdz', label: 'PDZ' }
       ];
     }
 
     if (parseInt(this.user.user.pid) == 100) {
       console.log('m&e');
-      this.examples = [{ link: 'authenticated', label: 'M&E' }];
+      this.examples = [{ link: 'authenticated', label: 'M&E' },
+      { link: 'bydistrict', label: 'BY DISTRICT' },
+      { link: 'bymun', label: 'BY MUNICIPAL' },
+      { link: 'pdz', label: 'PDZ' }];
     }
     if (parseInt(this.user.user.pid) > 100) {
       this.examples = [{ link: 'authenticated', label: 'Budgets' }];
