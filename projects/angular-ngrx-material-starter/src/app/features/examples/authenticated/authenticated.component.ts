@@ -15,6 +15,8 @@ export class AuthenticatedComponent implements OnInit {
   name: string = '';
   open: boolean = false;
   uid: any;
+  logged_pid: any;
+  menu: any;
 
   setPID(pid: number, name: string) {
     this.pid = pid;
@@ -24,11 +26,16 @@ export class AuthenticatedComponent implements OnInit {
   constructor(private mfoService: PmisService) {
     this.user = JSON.parse(localStorage.getItem('ANMS-AUTH'));
     this.uid = parseInt(this.user.user.user_id);
+    this.logged_pid = parseInt(this.user.user.pid);
     if (
       parseInt(this.user.user.pid) === 100 ||
       parseInt(this.user.user.pid) === 101
     ) {
       this.open = true;
+      this.mfoService.budget_assignment(this.uid).subscribe(data => {
+        this.menu = data;
+        console.log(data);
+      })
     }
   }
 

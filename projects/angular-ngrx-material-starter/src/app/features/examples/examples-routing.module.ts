@@ -12,6 +12,7 @@ import { DistrictComponent } from './district/district.component';
 import { BydistrictComponent } from './bydistrict/bydistrict.component';
 import { BymunicipalComponent } from './bymunicipal/bymunicipal.component';
 import { PdzComponent } from './pdz/pdz.component';
+import { LockedComponent } from './locked/locked.component';
 
 // import { ParentComponent } from './theming/parent/parent.component';
 // import { TodosContainerComponent } from './todos/components/todos-container.component';
@@ -54,15 +55,23 @@ const routes: Routes = [
       },
       {
         path: 'bydistrict',
-        component: BydistrictComponent
+        component: BydistrictComponent,
+        data: { title: 'by District' }
       },
       {
         path: 'bymun',
-        component: BymunicipalComponent
+        component: BymunicipalComponent,
+        data: { title: 'by Municipal' }
       },
       {
         path: 'pdz',
-        component: PdzComponent
+        component: PdzComponent,
+        data: { title: 'PDZ' }
+      },
+      {
+        path: 'locked',
+        component: LockedComponent,
+        data: { title: 'Locked' }
       },
       // {
       //   path: 'todos',
@@ -113,7 +122,7 @@ const routes: Routes = [
         path: 'authenticated',
         component: AuthenticatedComponent,
         canActivate: [AuthGuardService],
-        data: { title: 'anms.examples.menu.auth' }
+        data: { title: 'Auth' }
       }
     ]
   }

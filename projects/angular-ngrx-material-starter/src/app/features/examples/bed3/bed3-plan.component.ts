@@ -572,6 +572,13 @@ function getSimpleCellRenderer() {
     } else if (params.node.group) {
       tempDiv.innerHTML =
         '<span style="font-weight: bold">' + params.value + '</span>';
+    } else if (params.data.refocus == 1) {
+      tempDiv.innerHTML =
+        '<span style="background-color: #7FFF00">' + params.value + '</span>';
+    } 
+    else if (params.data.discontinue == 1) {
+      tempDiv.innerHTML =
+        '<span style=" background-color: #ffe6e6; text-decoration: line-through;">' + params.value + '</span>';
     } else {
       // console.log(params);
       tempDiv.innerHTML = '<span>' + params.value + '</span>';

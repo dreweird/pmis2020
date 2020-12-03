@@ -40,11 +40,19 @@ export class ExamplesComponent implements OnInit {
     }
 
     if (parseInt(this.user.user.pid) == 100) {
-      console.log('m&e');
-      this.examples = [{ link: 'authenticated', label: 'M&E' },
-      { link: 'bydistrict', label: 'BY DISTRICT' },
-      { link: 'bymun', label: 'BY MUNICIPAL' },
-      { link: 'pdz', label: 'PDZ' }];
+      if(parseInt(this.user.user.user_id) == 83){ // account manager
+        this.examples = [{ link: 'authenticated', label: 'M&E' },
+        { link: 'locked', label: 'Locked' },
+        { link: 'bydistrict', label: 'BY DISTRICT' },
+        { link: 'bymun', label: 'BY MUNICIPAL' },
+        { link: 'pdz', label: 'PDZ' }];
+      }else{
+        this.examples = [{ link: 'authenticated', label: 'M&E' },
+        { link: 'bydistrict', label: 'BY DISTRICT' },
+        { link: 'bymun', label: 'BY MUNICIPAL' },
+        { link: 'pdz', label: 'PDZ' }];
+      }
+
     }
     if (parseInt(this.user.user.pid) > 100) {
       this.examples = [{ link: 'authenticated', label: 'Budgets' }];

@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Router } from '@angular/router';
+import { authLogout } from '../core.module';
+import { Store } from '@ngrx/store';
 
 /** Passes HttpErrorResponse to application-wide error handler */
 @Injectable()
@@ -18,7 +20,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     private injector: Injector,
     private router: Router,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private store: Store
   ) {}
 
   intercept(
@@ -44,12 +47,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             appErrorHandler.handleError(err);
           }
           if (err.status === 401) {
-            this.router.navigate(['']);
             this.localStorageService.setItem('AUTH', {
               isAuthenticated: false,
               user: {}
             });
+
+            alert('Your session was expired! \n Please Login again.');
+            this.store.dispatch(authLogout());
+            // this.router.navigate(['/about']);
+            // window.location.reload();
           }
+      
         }
       })
     );

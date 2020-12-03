@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: FeatureListComponent,
-    data: { title: 'anms.menu.features' }
+    data: { title: 'Dashboard' }
   },
   {
     path: 'dashboard-program',

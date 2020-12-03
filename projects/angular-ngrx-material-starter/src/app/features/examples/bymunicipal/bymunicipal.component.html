@@ -11,7 +11,14 @@
           <form [formGroup]="inputForm" #formDirective="ngForm">
               <table class="example-full-width" cellspacing="0">
                 <tr>
-      
+                  <td>
+                    <mat-form-field>
+                      <mat-label>Select Program</mat-label>
+                      <mat-select formControlName="prog">
+                        <mat-option *ngFor="let p of prog" [value]="p.pid">{{p.value}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
                   <td>
                     <mat-form-field>
                       <mat-label>Select Province</mat-label>
@@ -29,6 +36,8 @@
                       </mat-select>
                     </mat-form-field>
                   </td>
+                </tr>
+                <tr>
                   <td>
                     <button [disabled]="!inputForm.valid" mat-raised-button color="primary"
                       (click)="onGenerate(formDirective)">Generate Report</button>

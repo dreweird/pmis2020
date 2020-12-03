@@ -20,8 +20,17 @@ export class BymunicipalComponent implements OnInit {
   rowData: any;
   autoGroupColumnDef: any;
   components: any;
-  defaultColDef: { resizable: true };
+  defaultColDef = { resizable: true };
   gridApi: any;
+
+  prog: any[] = [
+    { value: "RICE", pid: 1},
+    { value: "CORN", pid: 2},
+    { value: "HVCDP", pid: 3},
+    { value: "LIVESTOCK", pid: 4},
+    { value: "ORGANIC", pid: 5},
+    { value: "ALL", pid: 0}
+  ];
 
   columnDefs = [
     { headerName: 'header_main', field: 'header_main', rowGroup: true, hide: true},
@@ -29,17 +38,6 @@ export class BymunicipalComponent implements OnInit {
     { headerName: 'header_subindicator', field: 'header_subindicator', rowGroup: true, hide: true},
     { headerName: 'mfo_name', field: 'mfo_name',  hide: true},
     { headerName: 'Unit of Measure', field: 'unitmeasure', width: 100, cellClass: ['data'],},
-    { headerName: 'Physical Target', field: 'target', width: 100, cellClass: ['data'],
-    valueGetter: function(params) {
-      let data = params.data;
-      var total = 0;
-      if(data){
-        for (var i = 0, l = data.location.length; i < l; i++) {
-          total = total + data.location[i].target;
-        }
-        return total;
-      }
-    }},
     { headerName: 'Budget Allocation', field: 'cost', width: 100,valueFormatter: this.currencyFormatter,
     type: 'numericColumn', cellClass: ['data'],
     valueGetter: function(params) {
@@ -52,20 +50,184 @@ export class BymunicipalComponent implements OnInit {
         return total * Number(data.cost);
       }
     }},
-    { headerName: 'Location', field: 'location', width: 300,  cellClass: ['data'],
-    valueGetter: function(params) {
-      let data = params.data;
-      let loc = "";
-      if(data){
-        for (var i = 0, l = data.location.length; i < l; i++) {
-          var obj = data.location[i];
-          loc +=  data.location[i].municipal + '  (' + data.location[i].target + ') ';
+    {headerName: "Physical Target", children: [
+      { headerName: ' Target', field: 'target', width: 100, cellClass: ['data'],
+      valueGetter: function(params) {
+        let data = params.data;
+        var total = 0;
+        if(typeof data !== "undefined"){
+          for (var i = 0, l = data.location.length; i < l; i++) {
+            total = total + data.location[i].target;
+          }
+          return total;
         }
-        return loc;
-    
+      }},
+  
+      { headerName: 'Location', field: 'location', width: 300,  cellClass: ['data'],
+      valueGetter: function(params) {
+        let data = params.data;
+        let loc = "";
+        if(typeof data !== "undefined"){
+          for (var i = 0, l = data.location.length; i < l; i++) {
+            var obj = data.location[i];
+            loc +=  data.location[i].municipal + '  (' + data.location[i].target + ') ';
+          }
+          return loc;
+      
+        }
+      }},
+  
+    ]},
+    {
+      headerName: 'Physical Accomplishment Q1',
+      children: [
+        { headerName: 'Accomplishment',  width: 100, cellClass: ['data'],
+        valueGetter: function(params) {
+          let data = params.data;
+          var total = 0;
+          if(typeof data !== "undefined"){
+            for (var i = 0, l = data.q1_accomp.length; i < l; i++) {
+              total = total + data.q1_accomp[i].accomp;
+            }
+            return total;
+          }
+        }
+        },
+        { headerName: 'Location', width: 300,  cellClass: ['data'],
+        valueGetter: function(params) {
+          let data = params.data;
+          let loc = "";
+          if(typeof data !== "undefined"){
+            for (var i = 0, l = data.q1_accomp.length; i < l; i++) {
+              loc +=  data.q1_accomp[i].municipal + '  (' + data.q1_accomp[i].accomp + ') ';
+            }
+            return loc;
+        
+          }
+        } 
       }
-    }},
-
+      ]
+     },
+     {
+      headerName: 'Physical Accomplishment Q2',
+      children: [
+        { headerName: 'Accomplishment',  width: 100, cellClass: ['data'],
+        valueGetter: function(params) {
+          let data = params.data;
+          var total = 0;
+          if(typeof data !== "undefined"){
+            for (var i = 0, l = data.q2_accomp.length; i < l; i++) {
+              total = total + data.q2_accomp[i].accomp;
+            }
+            return total;
+          }
+        }
+        },
+        { headerName: 'Location', width: 300,  cellClass: ['data'],
+        valueGetter: function(params) {
+          let data = params.data;
+          let loc = "";
+          if(typeof data !== "undefined"){
+            for (var i = 0, l = data.q2_accomp.length; i < l; i++) {
+              loc +=  data.q2_accomp[i].municipal + '  (' + data.q2_accomp[i].accomp + ') ';
+            }
+            return loc;
+        
+          }
+        } 
+      }
+      ]
+     },
+     {
+      headerName: 'Physical Accomplishment Q3',
+      children: [
+        { headerName: 'Accomplishment',  width: 100, cellClass: ['data'],
+        valueGetter: function(params) {
+          let data = params.data;
+          var total = 0;
+          if(typeof data !== "undefined"){
+            for (var i = 0, l = data.q3_accomp.length; i < l; i++) {
+              total = total + data.q3_accomp[i].accomp;
+            }
+            return total;
+          }
+        }
+        },
+        { headerName: 'Location', width: 300,  cellClass: ['data'],
+        valueGetter: function(params) {
+          let data = params.data;
+          let loc = "";
+          if(typeof data !== "undefined"){
+            for (var i = 0, l = data.q3_accomp.length; i < l; i++) {
+              loc +=  data.q3_accomp[i].municipal + '  (' + data.q3_accomp[i].accomp + ') ';
+            }
+            return loc;
+        
+          }
+        } 
+      }
+      ]
+     },
+     {
+      headerName: 'Physical Accomplishment Q4',
+      children: [
+        { headerName: 'Accomplishment',  width: 100, cellClass: ['data'],
+        valueGetter: function(params) {
+          let data = params.data;
+          var total = 0;
+          if(typeof data !== "undefined"){
+            for (var i = 0, l = data.q4_accomp.length; i < l; i++) {
+              total = total + data.q4_accomp[i].accomp;
+            }
+            return total;
+          }
+        }
+        },
+        { headerName: 'Location', width: 300,  cellClass: ['data'],
+        valueGetter: function(params) {
+          let data = params.data;
+          let loc = "";
+          if(typeof data !== "undefined"){
+            for (var i = 0, l = data.q4_accomp.length; i < l; i++) {
+              loc +=  data.q1_accomp[i].municipal + '  (' + data.q4_accomp[i].accomp + ') ';
+            }
+            return loc;
+        
+          }
+        } 
+      }
+      ]
+     },
+     {
+      headerName: 'Physical Accomplishment Total',
+      children: [
+        { headerName: 'Accomplishment',  width: 100, cellClass: ['data'],
+        valueGetter: function(params) {
+          let data = params.data;
+          var total = 0;
+          if(typeof data !== "undefined"){
+            for (var i = 0, l = data.qtotal_accomp.length; i < l; i++) {
+              total = total + data.qtotal_accomp[i].accomp;
+            }
+            return total;
+          }
+        }
+        },
+        { headerName: 'Location', width: 300,  cellClass: ['data'],
+        valueGetter: function(params) {
+          let data = params.data;
+          let loc = "";
+          if(typeof data !== "undefined"){
+            for (var i = 0, l = data.qtotal_accomp.length; i < l; i++) {
+              loc +=  data.qtotal_accomp[i].municipal + '  (' + data.qtotal_accomp[i].accomp + ') ';
+            }
+            return loc;
+        
+          }
+        } 
+      }
+      ]
+     },
 
   ];
   excelStyles = [
@@ -103,6 +265,42 @@ export class BymunicipalComponent implements OnInit {
         borderTop: { color: '#000000', lineStyle: 'Continuous', weight: 1 }
       }
     },
+    {
+      id: 'p1',
+      interior: { color: '#BBDAFF', pattern: 'Solid' },
+      font: { size: 11, fontName: 'Calibri', bold: true },
+      alignment: { horizontal: 'Center' }
+    },
+    {
+      id: 'p2',
+      interior: { color: '#86BCFF', pattern: 'Solid' },
+      font: { size: 11, fontName: 'Calibri', bold: true },
+      alignment: { horizontal: 'Center' }
+    },
+    {
+      id: 'p3',
+      interior: { color: '#fddfdf', pattern: 'Solid' },
+      font: { size: 11, fontName: 'Calibri', bold: true },
+      alignment: { horizontal: 'Center' }
+    },
+    {
+      id: 'p4',
+      interior: { color: '#ffb7b2', pattern: 'Solid' },
+      font: { size: 11, fontName: 'Calibri', bold: true },
+      alignment: { horizontal: 'Center' }
+    },
+    {
+      id: 'p5',
+      interior: { color: '#92FEF9', pattern: 'Solid' },
+      font: { size: 11, fontName: 'Calibri', bold: true },
+      alignment: { horizontal: 'Center' }
+    },
+    {
+      id: 'p6',
+      interior: { color: '#01FCEF', pattern: 'Solid' },
+      font: { size: 11, fontName: 'Calibri', bold: true },
+      alignment: { horizontal: 'Center' }
+    },
     { id: 'headappend', font: { size: 11, fontName: 'Calibri', bold: true } }
   ];
  
@@ -129,6 +327,7 @@ export class BymunicipalComponent implements OnInit {
       console.log(data);
     });
     this.inputForm = new FormGroup({
+      prog: new FormControl('', [Validators.required]),
       prov: new FormControl('', [Validators.required]),
       mun: new FormControl('', [Validators.required])
 
@@ -174,7 +373,43 @@ export class BymunicipalComponent implements OnInit {
         [{styleId: 'headappend',data: { type: 'String', value: 'Caraga Region' }}],
         [{styleId: 'headappend',data: { type: 'String', value: 'Capitol Site, Butuan City' }}],
         [],
-        [{styleId: 'headappend',data: { type: 'String', value: this.munselect+ ', ' + this.provselect}}],       
+        [{styleId: 'headappend',data: { type: 'String', value: this.munselect+ ', ' + this.provselect}}],
+        [],
+        [
+          { data: { type: 'String', value: '' } },
+          { data: { type: 'String', value: '' } },
+          { data: { type: 'String', value: '' } },
+          {
+            styleId: 'p1',
+            data: { type: 'String', value: 'Physical Target' },
+            mergeAcross: 1
+          },
+          {
+            styleId: 'p2',
+            data: { type: 'String', value: 'Physical Accomplishment - Q1' },
+            mergeAcross: 1
+          },
+          {
+            styleId: 'p3',
+            data: { type: 'String', value: 'Physical Accomplishment - Q2' },
+            mergeAcross: 1
+          },
+          {
+            styleId: 'p4',
+            data: { type: 'String', value: 'Physical Accomplishment - Q3' },
+            mergeAcross: 1
+          },
+          {
+            styleId: 'p5',
+            data: { type: 'String', value: 'Physical Accomplishment - Q4' },
+            mergeAcross: 1
+          },
+          {
+            styleId: 'p6',
+            data: { type: 'String', value: 'Physical Accomplishment - Total' },
+            mergeAcross: 1
+          }
+        ]       
       ],
       sheetName: "CY 2020 Interventions based on GAA",
       fileName: this.provselect+ ', District ' + this.munselect,
@@ -201,10 +436,18 @@ export class BymunicipalComponent implements OnInit {
   onGenerate(formDirective: FormGroupDirective){
     this.provselect = this.inputForm.value.prov;
     this.munselect = this.inputForm.value.mun;
+    console.log(this.inputForm.value);
     this.pmisService.by_mun(this.inputForm.value).subscribe((data: any)=>{
-      this.rowData = data;
-      this.cd.markForCheck();
-      console.log(this.rowData);
+      if(data){
+        this.rowData = data;
+        this.cd.markForCheck();
+        // console.log(this.rowData);
+      }else{
+        this.rowData = data;
+        this.cd.markForCheck();
+        alert("No results found. Please try another municipal.")
+      }
+  
     });
     formDirective.resetForm();
     this.inputForm.reset();

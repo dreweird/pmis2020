@@ -49,9 +49,9 @@ export class DashboardProgramComponent implements OnInit {
       this.mfoService.getPerformance_program(this.pid).subscribe(data => {
         console.log(data);
         this.data = data;
-        this.prog_fin = ((data[0].fa / data[0].ft) * 100).toFixed(2) + '%';
+        this.prog_fin = ((data[0].fa / data[0].adjusted_alloc) * 100).toFixed(2) + '%';
         this.prog_phys = ((data[0].pa / data[0].pt) * 100).toFixed(2) + '%';
-        this.prog_dis = ((data[0].da / data[0].dt) * 100).toFixed(2) + '%';
+        this.prog_dis = ((data[0].da / data[0].adjusted_alloc) * 100).toFixed(2) + '%';
         this.cd.markForCheck();
         this.da_fin = new CanvasJS.Chart('da_fin', {
           animationEnabled: true,
@@ -86,7 +86,7 @@ export class DashboardProgramComponent implements OnInit {
             {
               type: 'column',
               showInLegend: true,
-              name: 'Financial Target',
+              name: 'BED-1 Target',
               dataPoints: [
                 { y: data[0].janft, label: 'Jan' },
                 { y: data[0].febft, label: 'Feb' },
@@ -105,7 +105,7 @@ export class DashboardProgramComponent implements OnInit {
             {
               type: 'column',
               showInLegend: true,
-              name: 'Obligation',
+              name: 'Actual Obligation',
               dataPoints: [
                 { y: data[0].janfa, label: 'Jan' },
                 { y: data[0].febfa, label: 'Feb' },
@@ -124,7 +124,7 @@ export class DashboardProgramComponent implements OnInit {
             {
               type: 'line',
               showInLegend: true,
-              name: 'Disbursement Target',
+              name: 'BED-3 Target',
               dataPoints: [
                 { y: data[0].jandt, label: 'Jan' },
                 { y: data[0].febdt, label: 'Feb' },
@@ -217,7 +217,7 @@ export class DashboardProgramComponent implements OnInit {
             {
               type: 'column',
               showInLegend: true,
-              name: 'Accomplishment',
+              name: 'Physical Accomplishment',
               dataPoints: [
                 { y: data[0].jana, label: 'Jan' },
                 { y: data[0].feba, label: 'Feb' },
@@ -254,7 +254,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Financial Target',
+          name: 'BED-1 Target',
           dataPoints: [
             { y: this.data[0].janft, label: 'Jan' },
             { y: this.data[0].febft + this.data[0].janft, label: 'Feb' },
@@ -375,7 +375,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Obligation',
+          name: 'Actual Obligation',
           dataPoints: [
             { y: this.data[0].janfa, label: 'Jan' },
             { y: this.data[0].febfa + this.data[0].janfa, label: 'Feb' },
@@ -496,7 +496,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'line',
           showInLegend: true,
-          name: 'Disbursement Target',
+          name: 'BED-3 Target',
           dataPoints: [
             { y: this.data[0].jandt, label: 'Jan' },
             { y: this.data[0].febdt + this.data[0].jandt, label: 'Feb' },
@@ -747,7 +747,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Financial Target',
+          name: 'BED-1 Target',
           dataPoints: [
             { y: this.data[0].janft, label: 'Jan' },
             { y: this.data[0].febft, label: 'Feb' },
@@ -766,7 +766,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Obligation',
+          name: 'Actual Obligation',
           dataPoints: [
             { y: this.data[0].janfa, label: 'Jan' },
             { y: this.data[0].febfa, label: 'Feb' },
@@ -785,7 +785,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'line',
           showInLegend: true,
-          name: 'Disbursement Target',
+          name: 'BED-3 Target',
           dataPoints: [
             { y: this.data[0].jandt, label: 'Jan' },
             { y: this.data[0].febdt, label: 'Feb' },
@@ -961,7 +961,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Accomplishment',
+          name: 'Physical Accomplishment',
           dataPoints: [
             { y: this.data[0].jana, label: 'Jan' },
             { y: this.data[0].feba + this.data[0].jana, label: 'Feb' },
@@ -1107,7 +1107,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Accomplishment',
+          name: 'Physical Accomplishment',
           dataPoints: [
             { y: this.data[0].jana, label: 'Jan' },
             { y: this.data[0].feba, label: 'Feb' },
@@ -1144,7 +1144,7 @@ export class DashboardProgramComponent implements OnInit {
           type: 'line',
           showInLegend: true,
           percentFormatString: '#0.##',
-          name: 'Accomplishment',
+          name: 'Physical Accomplishment',
           dataPoints: [
             { y: (this.data[0].jana / this.data[0].pt) * 100, label: 'Jan' },
             {
@@ -1454,7 +1454,7 @@ export class DashboardProgramComponent implements OnInit {
           type: 'column',
           showInLegend: true,
           percentFormatString: '#0.##',
-          name: 'Accomplishment',
+          name: 'Physical Accomplishment',
           dataPoints: [
             { y: (this.data[0].jana / this.data[0].jant) * 100, label: 'Jan' },
             {
@@ -1682,7 +1682,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Obligation',
+          name: 'Actual Obligation',
           dataPoints: [
             { y: (this.data[0].janfa / this.data[0].ft) * 100, label: 'Jan' },
             {
@@ -1981,7 +1981,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'line',
           showInLegend: true,
-          name: 'Financial Target',
+          name: 'BED-1 Target',
           dataPoints: [
             { y: (this.data[0].janft / this.data[0].ft) * 100, label: 'Jan' },
             {
@@ -2130,7 +2130,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'line',
           showInLegend: true,
-          name: 'Disbursement Target',
+          name: 'BED-3 Target',
           dataPoints: [
             { y: (this.data[0].jandt / this.data[0].dt) * 100, label: 'Jan' },
             {
@@ -2293,7 +2293,7 @@ export class DashboardProgramComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Obligation',
+          name: 'Actual Obligation',
           dataPoints: [
             {
               y: (this.data[0].janfa / this.data[0].janft) * 100,

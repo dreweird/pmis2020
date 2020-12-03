@@ -13,6 +13,8 @@ import { MatSelect } from '@angular/material/select';
 
 import { take, takeUntil } from 'rxjs/operators';
 import { ReplaySubject, Subject } from 'rxjs';
+import { ThrowStmt } from '@angular/compiler';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**
  * The dialog will close with true if user clicks the ok button,
@@ -20,9 +22,11 @@ import { ReplaySubject, Subject } from 'rxjs';
  */
 @Component({
   template: `
-    <h2 mat-dialog-title>ADD OBJECT</h2>
+    <h2 mat-dialog-title *ngIf="add">ADD OBJECT</h2>
+    <h2 mat-dialog-title *ngIf="edit">EDIT or DELETE OBJECT</h2>
     <mat-dialog-content>
-      <form [formGroup]="form" (ngSubmit)="submit()">
+      <form [formGroup]="form">
+      <p *ngIf="edit"> Old value: {{ selectedItem }} </p>
         <p>
           <mat-form-field>
             <mat-select
@@ -47,10 +51,15 @@ import { ReplaySubject, Subject } from 'rxjs';
           </mat-form-field>
         </p>
 
-        <p class="submitButtons">
-          <button type="submit" color="primary" mat-button>ADD</button>
+        <p class="submitButtons" *ngIf="add">
+          <button (click)="insert()" color="primary" mat-raised-button>ADD</button>
         </p>
+     
       </form>
+      <p class="submitButtons" *ngIf="edit">
+      <button (click)="remove()" color="warn" mat-raised-button>DELETE</button>
+        <button (click)="update()" color="accent" mat-raised-button>EDIT</button>
+      </p>
     </mat-dialog-content>
   `,
   styles: [
@@ -76,6 +85,7 @@ import { ReplaySubject, Subject } from 'rxjs';
         flex-direction: row;
         justify-content: flex-end;
       }
+ 
     `
   ]
 })
@@ -88,6 +98,10 @@ export class AddObjectDialogComponent
   protected _onDestroy = new Subject<void>();
 
   user: any;
+  edit: false
+  add: false;
+  selectedItem: any;
+
   public filteredObjects: ReplaySubject<Object[]> = new ReplaySubject<Object[]>(
     1
   );
@@ -151,12 +165,20 @@ export class AddObjectDialogComponent
   constructor(
     public dialogRef: MatDialogRef<AddObjectDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private mfoService: PmisService
+    private mfoService: PmisService,
+    private _snackBar: MatSnackBar
   ) {
-    console.log(data);
+   // console.log(data);
+   if(this.data.edit) {
+     this.edit = data.edit;
+      this.selectedItem =  this.data.data.name;
+     // console.log([this.data.data.name]);
+    }
+   if(this.data.add) this.add = data.add;
+
 
     this.mfoService.getObjectCode().subscribe((result: any) => {
-      console.log(result);
+    //  console.log(result);
       this.object = result;
     });
   }
@@ -165,7 +187,7 @@ export class AddObjectDialogComponent
     object: new FormControl('')
   });
 
-  submit() {
+  insert() {
     if (this.form.valid) {
       console.log(this.data.data.mfo_id, this.objectCtrl.value.object_id);
       this.mfoService
@@ -204,8 +226,62 @@ export class AddObjectDialogComponent
               }
             ]
           });
+          this._snackBar.open('Object code inserted successfully', 'Ok', {
+            duration: 2000
+          });
           this.dialogRef.close();
         });
+    }
+  }
+
+  update(){
+    if(this.form.valid){
+      let text = `Are you sure you want to update from ${this.selectedItem} to ${this.objectCtrl.value.name}?`
+      var r = confirm(text);
+      if (r == true) {
+        this.mfoService.updateObject(this.objectCtrl.value.object_id, this.data.data.id).subscribe(data => {
+          if(data) {
+            this.data.data.name = this.objectCtrl.value.name;
+            this.data.gridApi.updateRowData({
+              update: [
+                this.data.data
+              ]
+            });
+            this._snackBar.open('Object code updated successfully', 'Ok', {
+              duration: 2000
+            });
+          }
+        })     
+        this.dialogRef.close();
+      } else {
+     
+      }
+    }
+
+  }
+
+  remove(){
+    let text = `Are you sure you want to remove this object code:  ${this.selectedItem}?`
+    var r = confirm(text);
+    if (r == true) {
+      this.mfoService.removeObject(this.data.data.id).subscribe(data => {
+        if(data){
+          this.data.gridApi.updateRowData({
+            remove: [
+              this.data.data
+            ]
+          });
+          this._snackBar.open('Object code removed successfully', 'Ok', {
+            duration: 2000
+          });
+        }
+      });
+
+     
+      this.dialogRef.close();
+  
+    } else {
+   
     }
   }
 }

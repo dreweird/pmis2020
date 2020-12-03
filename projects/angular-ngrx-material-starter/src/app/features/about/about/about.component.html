@@ -34,18 +34,47 @@
 <div class="container">
   <div class="follow-releases" [ngClass]="routeAnimationsElements">
     <h2>System Updates</h2>
-    <h4>Version 5.0</h4>
-        <ul>
-          <li>Logs monitoring report was added in the PMIS dashboard</li>
-          <li>Adding and searching object code was enhanced</li>
-          <li>Physical Accomplishment by district was incorporated in BED 2</li>
-          <li>PMIS dashboard was added for comprehensive analysis of financial, physical and disbursement per programs/OUs/Agency</li>
-          <li>A Graphical data was incorporated for better analysis</li>
-          <li>A Summary table of all programs/OUs/Agency in the Dashboard page</li>
-          <li>A Token Based Authentication was embedded for system security </li>
-          <li>An error handler was added for better capturing of bugs and http error response</li>
-        </ul>
-     <h4>Version 4.0</h4>
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>Version 6.0</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+          <ul>
+            <li>Fixed Auto-Logout when token expired</li>
+            <li>Fixed By Municipality Empty Response</li>
+            <li>Group Footer was integrated in the ByDistrict Dialog</li>
+            <li>Locked Features in Physical Accomplishment Monthly</li>
+            <li>Budget Officer Assignment will progrmatically assigned</li>
+            <li>Physical Target Verification by the Report Officer</li>
+       </ul>
+        
+      </mat-expansion-panel>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>Version 5.0</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+          <ul>
+            <li>Logs monitoring report was added in the PMIS dashboard</li>
+            <li>Adding and searching object code was enhanced</li>
+            <li>Physical Accomplishment by district was incorporated in BED 2</li>
+            <li>PMIS dashboard was added for comprehensive analysis of financial, physical and disbursement per programs/OUs/Agency</li>
+            <li>A Graphical data was incorporated for better analysis</li>
+            <li>A Summary table of all programs/OUs/Agency in the Dashboard page</li>
+            <li>A Token Based Authentication was embedded for system security </li>
+            <li>An error handler was added for better capturing of bugs and http error response</li>
+          </ul>
+        
+      </mat-expansion-panel>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>Version 4.0</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
         <ul>
           <li>The BED-3 Component was added for disbursement plan and accomplishment monitoring 
           </li>
@@ -65,5 +94,9 @@
           </li>
   
         </ul>
+        
+      </mat-expansion-panel>
+    </mat-accordion>
+        
   </div>
 </div>

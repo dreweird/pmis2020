@@ -146,6 +146,7 @@ export class Bed2Component implements OnInit, OnChanges {
           (i == 3 && ii == 3) ||
           (i == 3 && ii == 7) ||
           (i == 3 && ii == 11) ||
+
           (i == 3 && ii == 15) ||
           (i == 3 && ii == 16)
         ) {
@@ -157,7 +158,7 @@ export class Bed2Component implements OnInit, OnChanges {
         }
       }
     }
-    console.log(ck);
+  //  console.log(ck);
     var prog_ou = this.user.user.username;
     if (this.pid != 0) prog_ou = this.name + ' - M&E Generated';
     if (prog_ou.substring(0, 7) == 'budget_')
@@ -180,7 +181,7 @@ export class Bed2Component implements OnInit, OnChanges {
         [
           {
             styleId: 'headappend',
-            data: { type: 'String', value: 'BED2 Report 2019' }
+            data: { type: 'String', value: 'BED2 Report 2020' }
           }
         ],
         [
@@ -192,7 +193,7 @@ export class Bed2Component implements OnInit, OnChanges {
         [
           {
             styleId: 'headappend',
-            data: { type: 'String', value: 'C.Y. 2019 CURRENT APPROPRIATION' }
+            data: { type: 'String', value: 'C.Y. 2020 CURRENT APPROPRIATION' }
           }
         ],
         [
@@ -998,6 +999,11 @@ export class Bed2Component implements OnInit, OnChanges {
       pinned: 'left',
       width: 300,
       field: 'mfo_name',
+      cellClassRules: {
+        redFont: function(params) {
+          return params.value;
+        }
+      },
       cellRendererParams: {
         suppressCount: true, // turn off the row count
         innerRenderer: 'simpleCellRenderer'
@@ -1171,8 +1177,12 @@ export class Bed2Component implements OnInit, OnChanges {
   }
 
   onCellClicked(event) {
-    // console.log(event);
-    if (event.data != undefined && event.data.area == 1) {
+     console.log(event);
+    if (event.data != undefined && event.data.area == 1 && event.colDef.field != 'janr'
+    && event.colDef.field != 'febr' && event.colDef.field != 'marr' && event.colDef.field != 'aprr'
+    && event.colDef.field != 'mayr' && event.colDef.field != 'junr' && event.colDef.field != 'julr'
+    && event.colDef.field != 'augr' && event.colDef.field != 'sepr' && event.colDef.field != 'octr'
+    && event.colDef.field != 'novr' && event.colDef.field != 'decr') {
       const dialogRef = this.dialog.open(districtDetailsDialog, {
         minWidth: '100vw',
         height: '100vh',
@@ -1199,7 +1209,14 @@ function getSimpleCellRenderer() {
     } else if (params.node.group) {
       tempDiv.innerHTML =
         '<span style="font-weight: bold">' + params.value + '</span>';
-    } else if (params.data.area == 1) {
+    }else if (params.data.refocus == 1) {
+      tempDiv.innerHTML =
+        '<span style="background-color: #7FFF00">' + params.value + '</span>';
+    } 
+    else if (params.data.discontinue == 1) {
+      tempDiv.innerHTML =
+        '<span style=" background-color: #ffe6e6; text-decoration: line-through;">' + params.value + '</span>';
+    }else if (params.data.area == 1) {
       tempDiv.innerHTML =
         '<span style="background-color: #FFFF00">' + params.value + '</span>';
     }else if (params.data.maintenance == 1) {

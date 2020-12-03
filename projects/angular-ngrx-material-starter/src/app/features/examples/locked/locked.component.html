@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Locked Physical Accomplishment</h2>
+    </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Month </th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Last Updated</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let l of locked; index as i">
+                    <td>{{ l.month }} </td>
+                    <td [ngClass]="(l.checked== true)?'open':'close'"> 
+                      {{ getStatus(l.checked)}}
+
+                    </td>
+                    <td> {{l.last_updated}} </td>
+                    <td><mat-slide-toggle  (click)="toggle($event, i, l.month)" 
+                      (keyup.space)="toggle($event, i, l.month)" 
+                      (checked)="l.checked"></mat-slide-toggle></td>
+                </tr>
+            
+              
+                </tbody>
+              </table> 
+    </div>
+      </div>
+    
+</div>
+

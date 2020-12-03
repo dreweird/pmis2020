@@ -132,7 +132,7 @@ export class Bed3Component implements OnInit, OnChanges {
         [
           {
             styleId: 'headappend',
-            data: { type: 'String', value: 'BED3 Report 2019' }
+            data: { type: 'String', value: 'BED3 Report 2020' }
           }
         ],
         [
@@ -144,7 +144,7 @@ export class Bed3Component implements OnInit, OnChanges {
         [
           {
             styleId: 'headappend',
-            data: { type: 'String', value: 'C.Y. 2019 CURRENT APPROPRIATION' }
+            data: { type: 'String', value: 'C.Y. 2020 CURRENT APPROPRIATION' }
           }
         ],
         [

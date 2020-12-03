@@ -47,6 +47,7 @@ import { Bed3Component } from './bed3/bed3.component';
 import { BydistrictComponent } from './bydistrict/bydistrict.component';
 import { BymunicipalComponent } from './bymunicipal/bymunicipal.component';
 import { PdzComponent } from './pdz/pdz.component';
+import { LockedComponent } from './locked/locked.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -110,7 +111,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DistrictComponent,
     BydistrictComponent,
     BymunicipalComponent,
-    PdzComponent
+    PdzComponent,
+    LockedComponent
   ],
   providers: [StockMarketService, UserService]
 })

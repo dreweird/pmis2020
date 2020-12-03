@@ -44,7 +44,7 @@ export class AuthEffects {
         ofType(authLoginSuccess),
         tap(data => {
           console.log(data);
-          this.router.navigate(['']);
+          this.router.navigate(['beds']);
           this.localStorageService.setItem(AUTH_KEY, {
             isAuthenticated: true,
             user: data.user

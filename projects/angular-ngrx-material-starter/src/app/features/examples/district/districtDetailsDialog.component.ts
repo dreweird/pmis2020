@@ -24,6 +24,8 @@ import { faWindows } from '@fortawesome/free-brands-svg-icons';
           [autoGroupColumnDef]="autoGroupColumnDef"
           [groupDefaultExpanded]=-1
           [suppressAggFuncInHeader]= "true"
+          [groupIncludeFooter]="true"
+          [groupIncludeTotalFooter]="true"
           (cellValueChanged)="onCellValueChanged($event)"
           (gridReady)="onGridReady($event)"
         >
@@ -47,14 +49,14 @@ export class districtDetailsDialog implements OnInit {
     cellRenderer: 'agGroupCellRenderer',
     pinned: 'left',
     width: 150,
-    field: 'province'
+    field: ''
   };
   defaultColDef = { resizable: true };
   
 
   columnDefs = [
     { headerName: 'Province', field: 'province', width: 150, pinned: 'left',  rowGroup: true, hide: true},
-    { headerName: 'Municipal', field: 'municipal', width: 150, pinned: 'left',  rowGroup: true, hide: true},
+    { headerName: 'Municipal', field: 'municipal', width: 150, pinned: 'left'},
     { headerName: 'Barangay', field: 'barangay', pinned: 'left', width: 100 },
     { headerName: 'Group', field: 'group', pinned: 'left', width: 200 },
     { headerName: 'Target', field: 'target', width: 100,  aggFunc: "sum", enableValue: true },

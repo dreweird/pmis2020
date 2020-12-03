@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PmisService {
-   apiRoot: string = 'http://172.16.130.10:3116';
-  // apiRoot: string = 'http://210.5.100.46:3116';
-   // apiRoot: string = 'http://localhost:3116';
+  // apiRoot: string = 'http://172.16.130.20:3116';
+   apiRoot: string = 'http://210.5.100.45:3116';
+  //  apiRoot: string = 'http://localhost:3116';
 
   constructor(private http: HttpClient) {}
 
@@ -23,6 +23,16 @@ export class PmisService {
 
   pdz(): Observable<any> {
     const url = `${this.apiRoot}/pdz`;
+    return this.http.get<any>(url);
+  }
+
+  budget_assignment(uid): Observable<any> {
+    const url = `${this.apiRoot}/budget_assignment`;
+    return this.http.post<any>(url, {uid});
+  }
+
+  month_locked(): Observable<any> {
+    const url = `${this.apiRoot}/month_locked`;
     return this.http.get<any>(url);
   }
 
@@ -83,6 +93,16 @@ export class PmisService {
   addObject(mfo_id, object_id, pid) {
     const url = `${this.apiRoot}/addObject`;
     return this.http.post(url, { mfo_id, object_id, pid });
+  }
+
+  updateObject(object_id, id) {
+    const url = `${this.apiRoot}/updateObject`;
+    return this.http.post(url, { id, object_id });
+  }
+
+  removeObject(id) {
+    const url = `${this.apiRoot}/removeObject`;
+    return this.http.post(url, { id});
   }
 
   updatePhysical(id: number, value: number, col: string) {

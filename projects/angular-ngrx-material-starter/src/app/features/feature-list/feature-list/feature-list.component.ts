@@ -102,609 +102,45 @@ export class FeatureListComponent implements OnInit {
         valueFormatter: this.nameFormatter
       },
       {
-        headerName: 'Financial Target',
-        children: [
-          {
-            headerName: 'Jan',
-            field: 'janft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Feb',
-            field: 'febft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Mar',
-            field: 'marft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Apr',
-            field: 'aprft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'May',
-            field: 'mayft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jun',
-            field: 'junft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jul',
-            field: 'julft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Aug',
-            field: 'augft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Sep',
-            field: 'sepft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Oct',
-            field: 'octft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Nov',
-            field: 'novft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Dec',
-            field: 'decft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Allocation',
-            field: 'ft',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            cellStyle: { color: 'white', 'background-color': '#283593' }
-          }
-        ]
+        headerName: 'Adjusted Allotment',
+        field: 'adjusted_alloc',
+        width: 120,
+        valueFormatter: this.currencyFormatter,
+        cellStyle: { color: 'white', 'background-color': '#283593' }
       },
       {
-        headerName: 'Financial Accomplishment',
-        children: [
-          {
-            headerName: 'Jan',
-            field: 'janfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Feb',
-            field: 'febfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Mar',
-            field: 'marfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Apr',
-            field: 'aprfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'May',
-            field: 'mayfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jun',
-            field: 'junfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jul',
-            field: 'julfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Aug',
-            field: 'augfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Sep',
-            field: 'sepfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Oct',
-            field: 'octfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Nov',
-            field: 'novfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Dec',
-            field: 'decfa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Obligation',
-            field: 'fin',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            cellStyle: { color: 'white', 'background-color': '#3F51B5' }
-          }
-        ]
+        headerName: 'Total Obligation',
+        field: 'fin',
+        width: 120,
+        valueFormatter: this.currencyFormatter,
+        cellStyle: { color: 'white', 'background-color': '#3F51B5' }
       },
       {
-        headerName: 'Financial Utilization',
-        children: [
-          {
-            headerName: 'Jan',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.janfa) / Number(data.janft))'
-          },
-          {
-            headerName: 'Feb',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.febfa) / Number(data.febft))'
-          },
-          {
-            headerName: 'Mar',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.marfa) / Number(data.marft))'
-          },
-          {
-            headerName: 'Apr',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.aprfa) / Number(data.aprft))'
-          },
-          {
-            headerName: 'May',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.mayfa) / Number(data.mayft))'
-          },
-          {
-            headerName: 'Jun',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.junfa) / Number(data.junft))'
-          },
-          {
-            headerName: 'Jul',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.julfa) / Number(data.julft))'
-          },
-          {
-            headerName: 'Aug',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.augfa) / Number(data.augft))'
-          },
-          {
-            headerName: 'Sep',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.sepfa) / Number(data.sepft))'
-          },
-          {
-            headerName: 'Oct',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.octfa) / Number(data.octft))'
-          },
-          {
-            headerName: 'Nov',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.novfa) / Number(data.novft))'
-          },
-          {
-            headerName: 'Dec',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.decfa) / Number(data.decft))'
-          },
-          {
-            headerName: 'Utilization',
-            field: '',
-            width: 120,
-            valueFormatter: this.percentageFormatter,
-            cellStyle: { color: 'white', 'background-color': '#7C4DFF' },
-            valueGetter: '(Number(data.fin) / Number(data.ft))'
-          }
-        ]
+        headerName: 'Utilization',
+        field: '',
+        width: 120,
+        valueFormatter: this.percentageFormatter,
+        cellStyle: { color: 'white', 'background-color': '#7C4DFF' },
+        valueGetter: '(Number(data.fin) / Number(data.adjusted_alloc))'
+      },
+ 
+      {
+        headerName: 'Total Disbursement',
+        field: 'dis',
+        width: 120,
+        valueFormatter: this.currencyFormatter,
+        cellStyle: { color: 'white', 'background-color': '#b000ff' }
       },
       {
-        headerName: 'Disbursement Target',
-        children: [
-          {
-            headerName: 'Jan',
-            field: 'jandt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Feb',
-            field: 'febdt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Mar',
-            field: 'mardt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Apr',
-            field: 'aprdt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'May',
-            field: 'maydt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jun',
-            field: 'jundt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jul',
-            field: 'juldt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Aug',
-            field: 'augdt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Sep',
-            field: 'sepdt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Oct',
-            field: 'octdt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Nov',
-            field: 'novdt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Dec',
-            field: 'decdt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Allocation',
-            field: 'dt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            cellStyle: { color: 'white', 'background-color': '#E040FB' }
-          }
-        ]
+        headerName: 'Utilization',
+        field: '',
+        width: 120,
+        valueFormatter: this.percentageFormatter,
+        cellStyle: { color: 'white', 'background-color': '#9C27B0' },
+        valueGetter: '(Number(data.dis) / Number(data.adjusted_alloc))'
       },
       {
-        headerName: 'Disbursement Accomplishment',
-        children: [
-          {
-            headerName: 'Jan',
-            field: 'janda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Feb',
-            field: 'febda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Mar',
-            field: 'marda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Apr',
-            field: 'aprda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'May',
-            field: 'mayda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jun',
-            field: 'junda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jul',
-            field: 'julda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Aug',
-            field: 'augda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Sep',
-            field: 'sepda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Oct',
-            field: 'octda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Nov',
-            field: 'novda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Dec',
-            field: 'decda',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Disburse',
-            field: 'dis',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            cellStyle: { color: 'white', 'background-color': '#b000ff' }
-          }
-        ]
-      },
-      {
-        headerName: 'Disbursement Utilization',
-        children: [
-          {
-            headerName: 'Jan',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.janda) / Number(data.jandt))'
-          },
-          {
-            headerName: 'Feb',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.febda) / Number(data.febdt))'
-          },
-          {
-            headerName: 'Mar',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.marda) / Number(data.mardt))'
-          },
-          {
-            headerName: 'Apr',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.aprda) / Number(data.aprdt))'
-          },
-          {
-            headerName: 'May',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.mayda) / Number(data.maydt))'
-          },
-          {
-            headerName: 'Jun',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.junda) / Number(data.jundt))'
-          },
-          {
-            headerName: 'Jul',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.julda) / Number(data.juldt))'
-          },
-          {
-            headerName: 'Aug',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.augda) / Number(data.augdt))'
-          },
-          {
-            headerName: 'Sep',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.sepda) / Number(data.sepdt))'
-          },
-          {
-            headerName: 'Oct',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.octda) / Number(data.octdt))'
-          },
-          {
-            headerName: 'Nov',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.novda) / Number(data.novdt))'
-          },
-          {
-            headerName: 'Dec',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.decda) / Number(data.decdt))'
-          },
-          {
-            headerName: 'Utilization',
-            field: '',
-            width: 120,
-            valueFormatter: this.percentageFormatter,
-            cellStyle: { color: 'white', 'background-color': '#9C27B0' },
-            valueGetter: '(Number(data.dis) / Number(data.dt))'
-          }
-        ]
-      },
-      {
-        headerName: 'Against Obligation',
+        headerName: 'Against Actual Obligation',
         valueFormatter: this.percentageFormatter,
         width: 120,
         cellStyle: { color: 'black', 'background-color': '#FFFF00' },
@@ -712,304 +148,25 @@ export class FeatureListComponent implements OnInit {
       },
       {
         headerName: 'Physical Target',
-        children: [
-          {
-            headerName: 'Jan',
-            field: 'jant',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Feb',
-            field: 'febt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Mar',
-            field: 'mart',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Apr',
-            field: 'aprt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'May',
-            field: 'mayt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jun',
-            field: 'junt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jul',
-            field: 'jult',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Aug',
-            field: 'augt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Sep',
-            field: 'sept',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Oct',
-            field: 'octt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Nov',
-            field: 'novt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Dec',
-            field: 'dect',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Target',
-            field: 'pt',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            cellStyle: { color: 'white', 'background-color': '#E91E63' }
-          }
-        ]
+        field: 'pt',
+        width: 120,
+        valueFormatter: this.currencyFormatter,
+        cellStyle: { color: 'white', 'background-color': '#E91E63' }
       },
       {
         headerName: 'Physical Accomplishment',
-        children: [
-          {
-            headerName: 'Jan',
-            field: 'jana',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Feb',
-            field: 'feba',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Mar',
-            field: 'mara',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Apr',
-            field: 'apra',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'May',
-            field: 'maya',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jun',
-            field: 'juna',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Jul',
-            field: 'jula',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Aug',
-            field: 'auga',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Sep',
-            field: 'sepa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Oct',
-            field: 'octa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Nov',
-            field: 'nova',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Dec',
-            field: 'deca',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            columnGroupShow: 'open'
-          },
-          {
-            headerName: 'Target',
-            field: 'pa',
-            width: 120,
-            valueFormatter: this.currencyFormatter,
-            cellStyle: { color: 'white', 'background-color': '#C2185B' }
-          }
-        ]
+        field: 'pa',
+        width: 120,
+        valueFormatter: this.currencyFormatter,
+        cellStyle: { color: 'white', 'background-color': '#C2185B' }
       },
       {
-        headerName: 'Physical Accomplishment',
-        children: [
-          {
-            headerName: 'Jan',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.jana) / Number(data.jant))'
-          },
-          {
-            headerName: 'Feb',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.feba) / Number(data.febt))'
-          },
-          {
-            headerName: 'Mar',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.mara) / Number(data.mart))'
-          },
-          {
-            headerName: 'Apr',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.apra) / Number(data.aprt))'
-          },
-          {
-            headerName: 'May',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.maya) / Number(data.mayt))'
-          },
-          {
-            headerName: 'Jun',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.juna) / Number(data.junt))'
-          },
-          {
-            headerName: 'Jul',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.jula) / Number(data.jult))'
-          },
-          {
-            headerName: 'Aug',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.auga) / Number(data.augt))'
-          },
-          {
-            headerName: 'Sep',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.sepa) / Number(data.sept))'
-          },
-          {
-            headerName: 'Oct',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.octa) / Number(data.octt))'
-          },
-          {
-            headerName: 'Nov',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.nova) / Number(data.novt))'
-          },
-          {
-            headerName: 'Dec',
-            field: '',
-            width: 100,
-            valueFormatter: this.percentageFormatter,
-            columnGroupShow: 'open',
-            valueGetter: '(Number(data.deca) / Number(data.dect))'
-          },
-          {
-            headerName: 'Accomplishment',
-            field: '',
-            width: 120,
-            valueFormatter: this.percentageFormatter,
-            cellStyle: { color: 'white', 'background-color': '#FF4081' },
-            valueGetter: '(Number(data.pa) / Number(data.pt))'
-          }
-        ]
+        headerName: 'Physical Percentage',
+        field: '',
+        width: 120,
+        valueFormatter: this.percentageFormatter,
+        cellStyle: { color: 'white', 'background-color': '#FF4081' },
+        valueGetter: '(Number(data.pa) / Number(data.pt))'
       }
     ];
 
@@ -1065,7 +222,7 @@ export class FeatureListComponent implements OnInit {
     this.mfoService.getFinPerformance().subscribe((data: []) => {
       this.rowData = data;
       this.fin_total = data.reduce(function(prev, cur: any) {
-        return prev + cur.ft;
+        return prev + cur.adjusted_alloc; 
       }, 0);
       let fin_acc = data.reduce(function(prev, cur: any) {
         return prev + cur.fin;
@@ -1084,7 +241,7 @@ export class FeatureListComponent implements OnInit {
       }, 0);
       this.da_fin = ((fin_acc / this.fin_total) * 100).toFixed(2) + '%';
       this.da_phys = ((phys_acc / phys_total) * 100).toFixed(2) + '%';
-      this.da_dis = ((dis_acc / this.dis_total) * 100).toFixed(2) + '%';
+      this.da_dis = ((dis_acc / this.fin_total) * 100).toFixed(2) + '%';
 
       this.janft = data.reduce(function(prev, cur: any) {
         return prev + cur.janft;
@@ -1277,7 +434,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Financial Target',
+          name: 'BED-1 Target',
           dataPoints: [
             { y: this.janft, label: 'Jan' },
             { y: this.febft, label: 'Feb' },
@@ -1296,7 +453,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Obligation',
+          name: 'Actual Obligation',
           dataPoints: [
             { y: this.janfa, label: 'Jan' },
             { y: this.febfa, label: 'Feb' },
@@ -1315,7 +472,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'line',
           showInLegend: true,
-          name: 'Disbursement Target',
+          name: 'BED-3 Target',
           dataPoints: [
             { y: this.jandt, label: 'Jan' },
             { y: this.febdt, label: 'Feb' },
@@ -1370,7 +527,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Financial Target',
+          name: 'BED-1 Target',
           dataPoints: [
             { y: this.janft, label: 'Jan' },
             { y: this.febft + this.janft, label: 'Feb' },
@@ -1479,7 +636,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Obligation',
+          name: 'Actual Obligation',
           dataPoints: [
             { y: this.janfa, label: 'Jan' },
             { y: this.febfa + this.janfa, label: 'Feb' },
@@ -1588,7 +745,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'line',
           showInLegend: true,
-          name: 'Disbursement Target',
+          name: 'BED-3 Target',
           dataPoints: [
             { y: this.jandt, label: 'Jan' },
             { y: this.febdt + this.jandt, label: 'Feb' },
@@ -1817,7 +974,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Financial Target',
+          name: 'BED-1 Target',
           dataPoints: [
             { y: this.janft, label: 'Jan' },
             { y: this.febft, label: 'Feb' },
@@ -1836,7 +993,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Obligation',
+          name: 'Actual Obligation',
           dataPoints: [
             { y: this.janfa, label: 'Jan' },
             { y: this.febfa, label: 'Feb' },
@@ -1855,7 +1012,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'line',
           showInLegend: true,
-          name: 'Disbursement Target',
+          name: 'BED-3 Target',
           dataPoints: [
             { y: this.jandt, label: 'Jan' },
             { y: this.febdt, label: 'Feb' },
@@ -1912,7 +1069,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Obligation',
+          name: 'Actual Obligation',
           dataPoints: [
             { y: (this.janfa / this.fin_total) * 100, label: 'Jan' },
             {
@@ -2193,7 +1350,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'line',
           showInLegend: true,
-          name: 'Financial Target',
+          name: 'BED-1 Target',
           dataPoints: [
             { y: (this.janft / this.fin_total) * 100, label: 'Jan' },
             {
@@ -2333,7 +1490,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'line',
           showInLegend: true,
-          name: 'Disbursement Target',
+          name: 'BED-3 Target',
           dataPoints: [
             { y: (this.jandt / this.dis_total) * 100, label: 'Jan' },
             {
@@ -2487,7 +1644,7 @@ export class FeatureListComponent implements OnInit {
         {
           type: 'column',
           showInLegend: true,
-          name: 'Obligation',
+          name: 'Actual Obligation',
           dataPoints: [
             { y: (this.janfa / this.janft) * 100, label: 'Jan' },
             {

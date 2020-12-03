@@ -18,14 +18,12 @@ app.use(CONTEXT, express.static(__dirname + '/dist_local'));
 app.use('/', express.static(__dirname + '/dist_local'));
 app.use(bodyParser.json()); // Body parser use JSON data
 app.use(bodyParser.urlencoded({ extended: false }));
-app.listen(PORT, 'localhost', () =>
-  console.log(`App running on local network localhost:${PORT}/${CONTEXT}`)
-);
+app.listen(PORT, console.log(`Server listening on port: ${PORT}`));
 
 var db_config = {
-  host: '172.16.130.10',
-  user: 'pmis',
-  password: 'pmis',
+  host: '172.16.130.20',
+  user: 'pmauser',
+  password: 'D@pr0p3rty',
   database: 'raw_dasystem2020',
   multipleStatements: true
 };
@@ -62,7 +60,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/login', function(req, res) {
-  console.log(req.body);
+ // console.log(req.body);
   var query = 'SELECT * FROM ?? WHERE ??=? and ??=?';
   var table = [
     'users',
@@ -72,7 +70,7 @@ app.post('/login', function(req, res) {
     req.body.password
   ];
   query = mysql.format(query, table);
-  console.log(query);
+ // console.log(query);
   connection.query(query, function(err, rows, fields) {
     if (rows.length != 0) {
       var token = jwt.sign({ data: rows[0].username }, 'pmis2019', {
@@ -100,7 +98,7 @@ app.post('/mfos', middleware.checkToken, function(req, res) {
       order by tbl_mfo.sequence, tbl_mfo.mfo_id,  tbl_allotment.id ASC`; //tbl_allotment.object_id
   var data = [req.body.pid];
   query = mysql.format(query, data);
-  console.log(query);
+//  console.log(query);
   connection.query(query, function(error, results) {
     if (error) throw error;
     res.json(results);
@@ -116,11 +114,30 @@ app.get('/pdz', function(req, res) {
 
 
 });
+
+app.get('/budget_assignment', function(req, res) {
+  var query = `SELECT * FROM tbl_budget_assignment`
+  connection.query(query, function(error, results) {
+    if (error) throw error;
+    res.json(results);
+
+  });
+
+
+});
 app.post('/by_district', function(req, res) {
-  var query = `SELECT * FROM tbl_mfo INNER JOIN tbl_district on tbl_mfo.mfo_id = tbl_district.mfo_id WHERE tbl_district.province = ? and tbl_district.district = ? group by tbl_mfo.mfo_id`
-  var data = [req.body.data.prov, req.body.data.district];
+
+	if(req.body.data.prog == 0){
+	  var query = `SELECT * FROM tbl_mfo INNER JOIN tbl_district on tbl_mfo.mfo_id = tbl_district.mfo_id WHERE tbl_district.province = ? and tbl_district.district = ? group by tbl_mfo.mfo_id`;
+	    var data = [req.body.data.prov, req.body.data.district];
+	}else{
+	var query = `SELECT * FROM tbl_mfo INNER JOIN tbl_district on tbl_mfo.mfo_id = tbl_district.mfo_id WHERE tbl_district.province = ? and tbl_district.district = ? and tbl_mfo.program_id = ? group by tbl_mfo.mfo_id`;
+	  var data = [req.body.data.prov, req.body.data.district, req.body.data.prog];
+	}
+
+
   query = mysql.format(query, data);
-  console.log(query);
+ // console.log(query);
   connection.query(query, function(error, results) {
     var itemsProcessed = 0;
     if (error) throw error;
@@ -131,8 +148,51 @@ app.post('/by_district', function(req, res) {
           var data1 = [req.body.data.prov, req.body.data.district, row.mfo_id];
           query1 = mysql.format(query1,data1);
           connection.query(query1, function (error, rows) {
-           // console.log(rows);
-            // if(rows[0] == undefined) callback(null, null);
+           callback(null, rows);
+       
+          });
+        },
+        location2: function(callback){
+          var query1 = `SELECT sum(jan + feb + mar + apr + may + jun + jul + aug + sep + oct + nov + dece) as accomp, municipal FROM tbl_district where province= ? and district= ? and mfo_id= ? group by municipal`
+          var data1 = [req.body.data.prov, req.body.data.district, row.mfo_id];
+          query1 = mysql.format(query1,data1);
+          connection.query(query1, function (error, rows) {
+           callback(null, rows);
+       
+          });
+        },
+        q1: function(callback){
+          var query1 = `SELECT sum(jan + feb + mar) as accomp, municipal FROM tbl_district where province= ? and district= ? and mfo_id= ? group by municipal`
+          var data1 = [req.body.data.prov, req.body.data.district, row.mfo_id];
+          query1 = mysql.format(query1,data1);
+          connection.query(query1, function (error, rows) {
+           callback(null, rows);
+       
+          });
+        },
+        q2: function(callback){
+          var query1 = `SELECT sum(apr + may + jun) as accomp, municipal FROM tbl_district where province= ? and district= ? and mfo_id= ? group by municipal`
+          var data1 = [req.body.data.prov, req.body.data.district, row.mfo_id];
+          query1 = mysql.format(query1,data1);
+          connection.query(query1, function (error, rows) {
+           callback(null, rows);
+       
+          });
+        },
+        q3: function(callback){
+          var query1 = `SELECT sum(jul + aug + sep) as accomp, municipal FROM tbl_district where province= ? and district= ? and mfo_id= ? group by municipal`
+          var data1 = [req.body.data.prov, req.body.data.district, row.mfo_id];
+          query1 = mysql.format(query1,data1);
+          connection.query(query1, function (error, rows) {
+           callback(null, rows);
+       
+          });
+        },
+        q4: function(callback){
+          var query1 = `SELECT sum(oct + nov + dece) as accomp, municipal FROM tbl_district where province= ? and district= ? and mfo_id= ? group by municipal`
+          var data1 = [req.body.data.prov, req.body.data.district, row.mfo_id];
+          query1 = mysql.format(query1,data1);
+          connection.query(query1, function (error, rows) {
            callback(null, rows);
        
           });
@@ -140,6 +200,11 @@ app.post('/by_district', function(req, res) {
       }, function(err, resultsLocation){
         //console.log(resultsLocation);
         row.location = resultsLocation.location;
+        row.qtotal_accomp = resultsLocation.location2;
+        row.q1_accomp = resultsLocation.q1;
+        row.q2_accomp = resultsLocation.q2;
+        row.q3_accomp = resultsLocation.q3;
+        row.q4_accomp = resultsLocation.q4;
         itemsProcessed++;
         if(itemsProcessed === results.length) {
           res.json(results); 
@@ -152,35 +217,98 @@ app.post('/by_district', function(req, res) {
 
 });
 app.post('/by_mun', function(req, res) {
+
+if(req.body.data.prog == 0){
   var query = `SELECT * FROM tbl_mfo INNER JOIN tbl_district on tbl_mfo.mfo_id = tbl_district.mfo_id WHERE tbl_district.province = ? and tbl_district.municipal = ? group by tbl_mfo.mfo_id`
   var data = [req.body.data.prov, req.body.data.mun];
+}else{
+  var query = `SELECT * FROM tbl_mfo INNER JOIN tbl_district on tbl_mfo.mfo_id = tbl_district.mfo_id WHERE tbl_district.province = ? and tbl_district.municipal = ? and tbl_mfo.program_id = ? group by tbl_mfo.mfo_id`
+  var data = [req.body.data.prov, req.body.data.mun, req.body.data.prog];
+}
+
   query = mysql.format(query, data);
-  console.log(query);
+ // console.log(query);
   connection.query(query, function(error, results) {
-    var itemsProcessed = 0;
-    if (error) throw error;
-    async.each(results, function(row, callback) {
-      async.parallel({
-        location: function(callback){
-          var query1 = `SELECT sum(target) as target, municipal FROM tbl_district where province= ? and municipal= ? and mfo_id= ? group by municipal`
-          var data1 = [req.body.data.prov, req.body.data.mun, row.mfo_id];
-          query1 = mysql.format(query1,data1);
-          connection.query(query1, function (error, rows) {
-           // console.log(rows);
-            // if(rows[0] == undefined) callback(null, null);
-           callback(null, rows);
-       
-          });
-        }
-      }, function(err, resultsLocation){
-        //console.log(resultsLocation);
-        row.location = resultsLocation.location;
-        itemsProcessed++;
-        if(itemsProcessed === results.length) {
-          res.json(results); 
-        }
+    if(!results.length){
+      console.log('results empty');
+      res.json(false); 
+    }else{
+      var itemsProcessed = 0;
+      if (error) throw error;
+      async.each(results, function(row, callback) {
+        async.parallel({
+  
+          location: function(callback){
+            var query1 = `SELECT sum(target) as target, municipal FROM tbl_district where province= ? and municipal= ? and mfo_id= ? group by municipal`
+            var data1 = [req.body.data.prov, req.body.data.mun, row.mfo_id];
+            query1 = mysql.format(query1,data1);
+            connection.query(query1, function (error, rows) {
+             callback(null, rows);
+         
+            });
+          },
+          location2: function(callback){
+            var query1 = `SELECT sum(jan + feb + mar + apr + may + jun + jul + aug + sep + oct + nov + dece) as accomp, municipal FROM tbl_district where province= ? and municipal= ? and mfo_id= ? group by municipal`
+            var data1 = [req.body.data.prov, req.body.data.mun, row.mfo_id];
+            query1 = mysql.format(query1,data1);
+            connection.query(query1, function (error, rows) {
+             callback(null, rows);
+         
+            });
+          },
+          q1: function(callback){
+            var query1 = `SELECT sum(jan + feb + mar) as accomp, municipal FROM tbl_district where province= ? and municipal= ? and mfo_id= ? group by municipal`
+            var data1 = [req.body.data.prov, req.body.data.mun, row.mfo_id];
+            query1 = mysql.format(query1,data1);
+            connection.query(query1, function (error, rows) {
+             callback(null, rows);
+         
+            });
+          },
+          q2: function(callback){
+            var query1 = `SELECT sum(apr + may + jun) as accomp, municipal FROM tbl_district where province= ? and municipal= ? and mfo_id= ? group by municipal`
+            var data1 = [req.body.data.prov, req.body.data.mun, row.mfo_id];
+            query1 = mysql.format(query1,data1);
+            connection.query(query1, function (error, rows) {
+             callback(null, rows);
+         
+            });
+          },
+          q3: function(callback){
+            var query1 = `SELECT sum(jul + aug + sep) as accomp, municipal FROM tbl_district where province= ? and municipal= ? and mfo_id= ? group by municipal`
+            var data1 = [req.body.data.prov, req.body.data.mun, row.mfo_id];
+            query1 = mysql.format(query1,data1);
+            connection.query(query1, function (error, rows) {
+             callback(null, rows);
+         
+            });
+          },
+          q4: function(callback){
+            var query1 = `SELECT sum(oct + nov + dece) as accomp, municipal FROM tbl_district where province= ? and municipal= ? and mfo_id= ? group by municipal`
+            var data1 = [req.body.data.prov, req.body.data.mun, row.mfo_id];
+            query1 = mysql.format(query1,data1);
+            connection.query(query1, function (error, rows) {
+             callback(null, rows);
+         
+            });
+          }
+        }, function(err, resultsLocation){
+          //console.log(resultsLocation);
+          row.location = resultsLocation.location;
+          row.qtotal_accomp = resultsLocation.location2;
+          row.q1_accomp = resultsLocation.q1;
+          row.q2_accomp = resultsLocation.q2;
+          row.q3_accomp = resultsLocation.q3;
+          row.q4_accomp = resultsLocation.q4;
+          itemsProcessed++;
+          if(itemsProcessed === results.length) {
+            res.json(results); 
+          }
+        })
       })
-    })
+    }
+
+
 
   });
 
@@ -188,10 +316,10 @@ app.post('/by_mun', function(req, res) {
 });
 
 app.post('/syncPhysicalDistrict', middleware.checkToken, function(req, res) {
-  //console.log(req);
+  console.log(req.body);
   connection.query(
-    `SELECT * FROM tbl_mfo where program_id = 5 and area = 1 `,
-    req.body.pid,
+    `SELECT * FROM tbl_mfo where program_id = ? and area = 1 `,
+    req.body.data,
     function(error, results) {
       if (error) throw error;
       async.each(
@@ -291,7 +419,7 @@ app.post('/getLogs', middleware.checkToken, function(req, res) {
     'SELECT * FROM tbl_logs where pid = ? and beds = ? order by date DESC';
   var data = [req.body.pid, req.body.beds];
   query = mysql.format(query, data);
-  console.log(query);
+ // console.log(query);
   connection.query(query, function(err, rows) {
     if (err) throw res.status(400).json(err);
     res.json(rows);
@@ -300,12 +428,12 @@ app.post('/getLogs', middleware.checkToken, function(req, res) {
 
 //get district accomplishment in BED2
 app.post('/getDistrictAccomp', middleware.checkToken, function(req, res) {
-  console.log(req.body);
+ // console.log(req.body);
   var query =
     'SELECT * FROM tbl_mfo INNER JOIN tbl_district on tbl_mfo.mfo_id = tbl_district.mfo_id, tbl_quarter WHERE tbl_district.mfo_id = ?';
   var data = [req.body.data.mfo_id];
   query = mysql.format(query, data);
-  console.log(query);
+ // console.log(query);
   connection.query(query, function(err, rows) {
     if (err) throw res.status(400).json(err);
     res.json(rows);
@@ -314,7 +442,7 @@ app.post('/getDistrictAccomp', middleware.checkToken, function(req, res) {
 
 app.get('/logsReport', function(req, res) {
   connection.query(
-    'SELECT username, pid FROM tbl_logs left join users on tbl_logs.pid = users.program_id WHERE users.budget = 0  and users.program_id != 21 GROUP by tbl_logs.pid',
+    'SELECT MAX(username) as username, pid FROM tbl_logs left join users on tbl_logs.pid = users.program_id WHERE users.budget = 0  and users.program_id != 21 GROUP by tbl_logs.pid',
     function(error, rows) {
       if (error) throw error;
       async.each(
@@ -370,7 +498,7 @@ app.post('/getDistrict', middleware.checkToken, function(req, res) {
   var data = [req.body.pid];
   var datares = {};
   query = mysql.format(query, data);
-  console.log(query);
+ // console.log(query);
   connection.query(query, function(err, rows) {
     var province = [
       'Agusan del Norte',
@@ -416,7 +544,7 @@ app.post('/getDistrict', middleware.checkToken, function(req, res) {
                         GROUP_CONCAT(CASE WHEN accomp>0 THEN CONCAT(municipal, '(', accomp,')') ELSE NULL END  SEPARATOR ", " ) as text2, mfo_id,province,district,sum(target) as target ,cost
                         FROM (SELECT mfo_id,province,district,sum(target) as target ,cost,municipal,  (sum(jan) + sum(feb) + sum(mar) + sum(apr) + sum(may) + sum(jun) + sum(jul) + sum(aug) + sum(sep) + sum(oct) + sum(nov) + sum(dece) ) as accomp FROM  tbl_district 
                         where mfo_id = ? and province= ? and district=2 GROUP by municipal)  AS d GROUP BY mfo_id,province,district`;
-              console.log(sql);
+             // console.log(sql);
               connection.query(String(sql), [mfo_id, prov], function(
                 k_err,
                 k_rows
@@ -461,7 +589,7 @@ app.post('/getDistrict', middleware.checkToken, function(req, res) {
       };
 
       async.map(province, districtFunction, function(err, result) {
-        console.log(result);
+      //  console.log(result);
         itemsProcessed++;
         row.dist = result;
         if (itemsProcessed === rows.length) {
@@ -488,9 +616,9 @@ app.post('/getDistrictDetails', middleware.checkToken, function(req, res) {
   var query =
     'SELECT * FROM tbl_district left join tbl_mfo on tbl_district.mfo_id = tbl_mfo.mfo_id  WHERE province like(?) and district = ? and tbl_district.mfo_id = ?';
   var data = req.body.data;
-  console.log(data);
+ // console.log(data);
   query = mysql.format(query, [data.province, data.district, data.mfo_id]);
-  console.log(query);
+//  console.log(query);
   connection.query(query, function(err, rows) {
     if (err) throw res.status(400).json(err);
     if (rows.length > 0) {
@@ -505,12 +633,12 @@ app.post('/updateDistrictDetails', middleware.checkToken, function(req, res) {
 
   //console.log(data);
   query = mysql.format(query, data);
-  console.log(query);
+ // console.log(query);
   connection.query(query, function(err, rows) {
-    console.log(rows);
+  //  console.log(rows);
     if (err) throw res.status(400).json(err);
     if (rows.affectedRows > 0) {
-      console.log(rows);
+   //   console.log(rows);
       res.json(rows);
     }
   });
@@ -521,7 +649,7 @@ app.post('/lastUpdated', middleware.checkToken, function(req, res) {
     'SELECT date FROM tbl_logs where pid = ? and beds = ? ORDER BY date DESC LIMIT 1 ';
   var data = [req.body.pid, req.body.beds];
   query = mysql.format(query, data);
-  console.log(query);
+//  console.log(query);
   connection.query(query, function(err, rows) {
     if (err) throw res.status(400).json(err);
     if (rows.length > 0) {
@@ -537,11 +665,39 @@ app.post('/addObject', middleware.checkToken, function(req, res) {
     'INSERT INTO tbl_allotment (mfo_id, object_id, pid) VALUES (?,?,?)';
   var data = [req.body.mfo_id, req.body.object_id, req.body.pid];
   query = mysql.format(query, data);
-  console.log(query);
+//  console.log(query);
   connection.query(query, function(err, rows) {
     if (err) throw res.status(400).json(err);
     if (rows.insertId) {
       res.status(200).json(rows.insertId);
+    }
+  });
+});
+
+app.post('/updateObject', middleware.checkToken, function(req, res) {
+  var query =
+    'UPDATE tbl_allotment set object_id = ? WHERE id = ?';
+  var data = [req.body.object_id, req.body.id];
+  query = mysql.format(query, data);
+//  console.log(query);
+  connection.query(query, function(err, rows) {
+    if (err) throw res.status(400).json(err);
+    if (rows.changedRows) {
+      res.status(200).json(true);
+    }
+  });
+});
+
+app.post('/removeObject', middleware.checkToken, function(req, res) {
+  var query =
+    'DELETE FROM tbl_allotment WHERE id = ?';
+  var data = [req.body.id];
+  query = mysql.format(query, data);
+//  console.log(query);
+  connection.query(query, function(err, rows) {
+    if (err) throw res.status(400).json(err);
+    if (rows.affectedRows ) {
+      res.status(200).json(true);
     }
   });
 });
@@ -551,7 +707,7 @@ app.post('/addLogs', middleware.checkToken, function(req, res) {
     'INSERT INTO tbl_logs (pid, mfo_id, message, date, beds) VALUES (?, ?, ?, NOW(), ?)';
   var data = [req.body.pid, req.body.mfo_id, req.body.message, req.body.beds];
   query = mysql.format(query, data);
-  console.log(query);
+ // console.log(query);
   connection.query(query, function(err, rows) {
     if (err) throw res.status(400).json(err);
     if (rows.insertId) {
@@ -564,7 +720,7 @@ app.post('/updateAllotment', middleware.checkToken, function(req, res) {
   var query = 'UPDATE tbl_allotment SET ?? = ? WHERE id = ?';
   var data = [req.body.col, req.body.value, req.body.id];
   query = mysql.format(query, data);
-  console.log(query);
+ // console.log(query);
   connection.query(query, function(err, rows) {
     if (err) throw res.status(400).json(err);
     if (rows.changedRows) {
@@ -577,7 +733,7 @@ app.post('/updatePhysical', middleware.checkToken, function(req, res) {
   var query = 'UPDATE tbl_mfo SET ?? = ? WHERE mfo_id = ?';
   var data = [req.body.col, req.body.value, req.body.id];
   query = mysql.format(query, data);
-  console.log(query);
+ // console.log(query);
   connection.query(query, function(err, rows) {
     if (err) throw res.status(400).json(err);
     if (rows.changedRows) {
@@ -604,7 +760,7 @@ app.post('/summaryObject', middleware.checkToken, function(req, res) {
 app.post('/getFinPerformance', function(req, res) {
   connection.query(
     `
-    SELECT b.pid, a.name, a.ft, a.janft, a.febft, a.marft, a.aprft, a.mayft, a.junft, a.julft, a.augft, a.sepft, a.octft, a.novft, a.decft, 
+    SELECT b.pid, MAX(a.name) as name, a.ft, a.janft, a.febft, a.marft, a.aprft, a.mayft, a.junft, a.julft, a.augft, a.sepft, a.octft, a.novft, a.decft, 
     a.dt, a.jandt, a.febdt, a.mardt, a.aprdt, a.maydt, a.jundt, a.juldt, a.augdt, a.sepdt, a.octdt, a.novdt, a.decdt, 
     a.pt, a.jant, a.febt, a.mart, a.aprt, a.mayt, a.junt, a.jult, a.augt, a.sept, a.octt, a.novt, a.dect, 
     a.pa, a.jana, a.feba, a.mara, a.apra, a.maya, a.juna, a.jula, a.auga, a.sepa, a.octa, a.nova, a.deca, 
@@ -635,7 +791,7 @@ app.post('/getFinPerformance', function(req, res) {
     sum(b.nov_da) as novda,
     sum(b.dec_da) as decda
     FROM tbl_allotment as b left join 
-    (   SELECT a.program_id, u.first_name as name, SUM((a.janft + a.febft + a.marft + a.aprft + a.mayft + a.junft + a.julft + a.augft + a.sepft + a.octft + a.novft + a.decft)) AS ft, 
+    (   SELECT a.program_id, MAX(u.first_name) as name, SUM((a.janft + a.febft + a.marft + a.aprft + a.mayft + a.junft + a.julft + a.augft + a.sepft + a.octft + a.novft + a.decft)) AS ft, 
             sum(a.janft) as janft,
             sum(a.febft) as febft, 
             sum(a.marft) as marft, 
@@ -701,7 +857,7 @@ app.post('/getFinPerformance', function(req, res) {
 app.get('/getFinPerformance', function(req, res) {
   connection.query(
     `
-    SELECT b.pid, a.name, a.ft, a.janft, a.febft, a.marft, a.aprft, a.mayft, a.junft, a.julft, a.augft, a.sepft, a.octft, a.novft, a.decft, 
+    SELECT b.pid, MAX(a.name) as name, a.ft, a.janft, a.febft, a.marft, a.aprft, a.mayft, a.junft, a.julft, a.augft, a.sepft, a.octft, a.novft, a.decft, 
     a.dt, a.jandt, a.febdt, a.mardt, a.aprdt, a.maydt, a.jundt, a.juldt, a.augdt, a.sepdt, a.octdt, a.novdt, a.decdt, 
     a.pt, a.jant, a.febt, a.mart, a.aprt, a.mayt, a.junt, a.jult, a.augt, a.sept, a.octt, a.novt, a.dect, 
     a.pa, a.jana, a.feba, a.mara, a.apra, a.maya, a.juna, a.jula, a.auga, a.sepa, a.octa, a.nova, a.deca, 
@@ -732,7 +888,7 @@ app.get('/getFinPerformance', function(req, res) {
     sum(b.nov_da) as novda,
     sum(b.dec_da) as decda
     FROM tbl_allotment as b left join 
-    (   SELECT a.program_id, u.first_name as name, SUM((a.janft + a.febft + a.marft + a.aprft + a.mayft + a.junft + a.julft + a.augft + a.sepft + a.octft + a.novft + a.decft)) AS ft, 
+    (   SELECT a.program_id, MAX(u.first_name) as name, SUM((a.janft + a.febft + a.marft + a.aprft + a.mayft + a.junft + a.julft + a.augft + a.sepft + a.octft + a.novft + a.decft)) AS ft, 
             sum(a.janft) as janft,
             sum(a.febft) as febft, 
             sum(a.marft) as marft, 

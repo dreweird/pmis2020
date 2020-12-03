@@ -143,7 +143,7 @@ export class Bed1Component implements OnInit, OnChanges {
         [
           {
             styleId: 'headappend',
-            data: { type: 'String', value: 'BED1 Report 2019' }
+            data: { type: 'String', value: 'BED1 Report 2020' }
           }
         ],
         [
@@ -155,7 +155,7 @@ export class Bed1Component implements OnInit, OnChanges {
         [
           {
             styleId: 'headappend',
-            data: { type: 'String', value: 'C.Y. 2019 CURRENT APPROPRIATION' }
+            data: { type: 'String', value: 'C.Y. 2020 CURRENT APPROPRIATION' }
           }
         ],
         [
@@ -347,9 +347,17 @@ export class Bed1Component implements OnInit, OnChanges {
     if (this.user.user.b == 1) {
       if (params.colDef.headerName === 'PAP' && params.data !== undefined) {
         const selectedRows = this.gridApi.getSelectedRows();
+       // console.log(selectedRows);
+        const dialogRef = this.dialog.open(AddObjectDialogComponent, {
+          data: { data: selectedRows[0], gridApi: this.gridApi, pid: this.pid, add: true }
+        });
+        return dialogRef.afterClosed();
+      }
+      if (params.colDef.headerName === 'Description' && params.data !== undefined) {
+        const selectedRows = this.gridApi.getSelectedRows();
         console.log(selectedRows);
         const dialogRef = this.dialog.open(AddObjectDialogComponent, {
-          data: { data: selectedRows[0], gridApi: this.gridApi, pid: this.pid }
+          data: { data: selectedRows[0], gridApi: this.gridApi, pid: this.pid, edit: true }
         });
         return dialogRef.afterClosed();
       }
@@ -875,6 +883,12 @@ function getSimpleCellRenderer() {
     } else if (params.node.group) {
       tempDiv.innerHTML =
         '<span style="font-weight: bold">' + params.value + '</span>';
+    }  else if (params.data.discontinue == 1) {
+      tempDiv.innerHTML =
+      '<span style=" background-color: #ffe6e6; text-decoration: line-through;">' + params.value + '</span>';
+    }  else if (params.data.refocus == 1) {
+      tempDiv.innerHTML =
+        '<span style="background-color: #7FFF00">' + params.value + '</span>';
     } else {
       // console.log(params);
       tempDiv.innerHTML = '<span>' + params.value + '</span>';
